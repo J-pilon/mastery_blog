@@ -38,3 +38,6 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
         run: bin/rails db:create db:migrate
+
+      - name: Run tests
+        uses: bin/rspec
