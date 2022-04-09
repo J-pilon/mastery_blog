@@ -1,15 +1,20 @@
 name: intial-setup-and-test-workflow
-on: [push]
+on: push
 jobs:
-  tests:
+  container-job:
     runs-on: ubuntu-latest
+
     services:
       postgres:
-        image: postgres:13.5-alpine
+        image: postgres:13.5
         env:
-          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        ports: ["5432:5432"]
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -34,9 +39,6 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: postgres
-          PGPASSWORD: password
         run: bin/rails db:create db:migrate
 
       - name: Run tests
