@@ -37,7 +37,7 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
-          PGPASSWORD: postgres
+          PGPASSWORD: password
         run: bin/rails db:create db:migrate
 
       - name: Run tests
