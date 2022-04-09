@@ -1,14 +1,16 @@
 name: intial-setup-and-test-workflow
 on: push
 jobs:
-  container-job:
+  rails-workflow:
     runs-on: ubuntu-latest
 
     services:
       postgres:
         image: postgres:13.5
         env:
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+        posts: 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
