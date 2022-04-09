@@ -47,4 +47,9 @@ jobs:
         run: bin/rails db:create db:migrate
 
       - name: Run tests
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
         run: bin/rspec
