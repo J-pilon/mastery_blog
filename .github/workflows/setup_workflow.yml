@@ -46,6 +46,11 @@ jobs:
           PGPASSWORD: postgres
         run: bin/rails db:create db:migrate
 
+      - name: Compile code
+        run: bin/rails webpacker:compile
+        env:
+          RAILS_ENV: test
+
       - name: Run tests
         env:
           RAILS_ENV: test
