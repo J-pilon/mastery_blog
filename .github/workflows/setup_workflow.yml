@@ -32,11 +32,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+          cache: ['npm', 'yarn']
 
-      - name: Setup Yarn
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install
+      - name: Compile assets
+        env:
+          RAILS_ENV: test
+        run: bin/rails assets:precompile
 
       - name: Setup test database
         env:
@@ -45,11 +46,6 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
         run: bin/rails db:create db:migrate
-
-      - name: Compile code
-        run: bin/rails webpacker:compile
-        env:
-          RAILS_ENV: test
 
       - name: Run tests
         env:
