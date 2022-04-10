@@ -57,3 +57,6 @@ jobs:
 
       - name: Send coverage report to codecov
         uses: codecov/codecov-action@v2
+        with:
+          directory: ./coverage/
+          verbose: true
