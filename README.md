@@ -1,3 +1,5 @@
+![CI workflow](https://github.com/J-pilon/mastery_blog/actions/workflows/ci_workflow/badge.svg)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
