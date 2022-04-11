@@ -47,21 +47,6 @@ jobs:
           PGPASSWORD: postgres
         run: bin/rails db:test:prepare
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: postgres
-          PGPASSWORD: postgres
-        run: bin/rspec
-
-      - name: Send coverage report to codecov
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./coverage/
-          verbose: true
-
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
@@ -74,3 +59,11 @@ jobs:
           coverageCommand: bin/rspec
           coverageLocations: coverage/coverage.json:simplecov
           debug: true
+
+      - name: Send coverage report to codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage/
+          verbose: true
+
