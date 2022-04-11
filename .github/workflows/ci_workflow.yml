@@ -34,18 +34,13 @@ jobs:
           node-version: '16'
           cache: 'npm'
 
-      - name: Compile assets
-        env:
-          RAILS_ENV: test
-        run: bin/rails db:test:prepare
-
       - name: Setup test database
         env:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
-        run: bin/rails db:create db:migrate
+        run: bin/rails db:test:prepare
 
       - name: Run tests
         env:
@@ -72,5 +67,5 @@ jobs:
           PGPASSWORD: postgres
         with: 
           coverageCommand: bin/rspec
-          coverageLocations: coverage/.resultset.json:cobertura
+          coverageLocations: coverage/coverage.json:simplecov
           debug: true
