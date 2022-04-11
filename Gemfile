@@ -80,5 +80,6 @@ group :test do
   gem "webdrivers"
 
   gem 'simplecov', require: false
-  gem 'codecov', require: false
+  
+  gem 'simplecov-cobertura', require: false
 end
