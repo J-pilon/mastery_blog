@@ -97,6 +97,11 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -109,6 +114,7 @@ GEM
       activesupport (>= 5.0.0)
     jsbundling-rails (1.0.2)
       railties (>= 6.0.0)
+    literate_randomizer (0.4.0)
     loofah (2.16.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -249,8 +255,10 @@ DEPENDENCIES
   cssbundling-rails
   debug
   dotenv-rails
+  factory_bot_rails
   jbuilder
   jsbundling-rails
+  literate_randomizer
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.0)
