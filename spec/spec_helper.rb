@@ -19,8 +19,8 @@ require 'capybara/rspec'
 require 'simplecov'
 SimpleCov.start
 
-require 'codecov'
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
+require "simplecov_json_formatter"
+SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

@@ -37,7 +37,7 @@ jobs:
       - name: Compile assets
         env:
           RAILS_ENV: test
-        run: bin/rails assets:precompile
+        run: bin/rails test:prepare
 
       - name: Setup test database
         env:
@@ -45,19 +45,25 @@ jobs:
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
-        run: bin/rails db:create db:migrate
+        run: bin/rails db:test:prepare
 
-      - name: Run tests
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
-        run: bin/rspec
+        with: 
+          coverageCommand: bin/rspec
+          coverageLocations: coverage/coverage.json:simplecov
+          debug: true
 
       - name: Send coverage report to codecov
         uses: codecov/codecov-action@v2
         with:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage/
           verbose: true
+
