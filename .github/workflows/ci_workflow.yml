@@ -58,5 +58,6 @@ jobs:
       - name: Send coverage report to codecov
         uses: codecov/codecov-action@v2
         with:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage/
           verbose: true
