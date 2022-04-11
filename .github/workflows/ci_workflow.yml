@@ -37,7 +37,7 @@ jobs:
       - name: Compile assets
         env:
           RAILS_ENV: test
-        run: bin/rails assets:precompile
+        run: db:test:prepare
 
       - name: Setup test database
         env:
