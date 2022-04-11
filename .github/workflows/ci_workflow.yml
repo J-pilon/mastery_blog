@@ -34,6 +34,11 @@ jobs:
           node-version: '16'
           cache: 'npm'
 
+      - name: Compile assets
+        env:
+          RAILS_ENV: test
+        run: bin/rails test:prepare
+
       - name: Setup test database
         env:
           RAILS_ENV: test
