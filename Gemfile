@@ -58,6 +58,10 @@ group :development, :test do
   gem 'rspec-rails'
 
   gem 'dotenv-rails'
+
+  gem 'factory_bot_rails'
+
+  gem 'literate_randomizer'
 end
 
 group :development do
