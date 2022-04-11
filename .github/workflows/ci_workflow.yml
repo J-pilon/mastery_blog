@@ -61,3 +61,8 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage/
           verbose: true
+
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secretes.CODE_CLIMATE_REPORTER_ID}}
