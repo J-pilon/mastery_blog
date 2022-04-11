@@ -74,4 +74,5 @@ jobs:
           coverageCommand: bin/rspec
           coverageLocations: ${{ github.workspace }}/coverage/
           debug: true
-        run: console.log("@@@@@", ${{ github.workspace }})
+
+      - run: console.log("@@@@@", ${{ github.workspace }})
