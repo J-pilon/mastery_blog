@@ -72,5 +72,5 @@ jobs:
           PGPASSWORD: postgres
         with: 
           coverageCommand: bin/rspec
-          coverageLocations: coverage/.resultset.json:simplecov
+          coverageLocations: coverage/.resultset.json:cobertura
           debug: true
