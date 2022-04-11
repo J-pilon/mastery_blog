@@ -58,7 +58,7 @@ jobs:
       - name: Send coverage report to codecov
         uses: codecov/codecov-action@v2
         with:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage/
           verbose: true
 
@@ -71,8 +71,5 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
         with: 
-          coverageCommand: bin/rspec
-          coverageLocations: ${{ github.workspace }}/coverage/
+          coverageCommand: bin/rails spec
           debug: true
-
-      - run: console.log("@@@@@", ${{ github.workspace }})
