@@ -1,4 +1,5 @@
 ![CI workflow](https://github.com/J-pilon/mastery_blog/actions/workflows/ci_workflow.yml/badge.svg)
+[![codecov](https://codecov.io/gh/J-pilon/mastery_blog/branch/main/graph/badge.svg?token=y29bpklUBt)](https://codecov.io/gh/J-pilon/mastery_blog)
 
 # README
 
