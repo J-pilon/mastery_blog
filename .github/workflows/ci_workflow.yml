@@ -71,5 +71,6 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
         with: 
-          coverageCommand: bin/rails spec
+          coverageCommand: bin/rspec
+          coverageLocations: coverage/.resultset.json:simplecov
           debug: true
