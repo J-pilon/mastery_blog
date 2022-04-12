@@ -18,5 +18,13 @@ module MasteryBlog
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.generators do |g|
+      g.helper false
+      g.test_framework :rspec,
+      routing_spec: false,
+      view_spec: false,
+      helper_spec: false
+    end
   end
 end
