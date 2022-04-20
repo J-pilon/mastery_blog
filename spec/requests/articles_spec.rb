@@ -39,7 +39,7 @@ RSpec.describe "Articles", type: :request do
     context "with valid attributes" do 
       it "successfully adds the article and redirects with status code of 302" do
         expect{post articles_path, :params => {:article => {:title => "This is the new title", :body => "And here is a new body!"}}}.to change{Article.count}.by(1)
-        
+
         expect(response).to have_http_status(302)
       end
     end
