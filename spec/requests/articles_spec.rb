@@ -7,9 +7,9 @@ RSpec.describe "Articles", type: :request do
     it "responds with article and status code 200" do
       get articles_path
 
-      json = JSON.parse(response.body.to_json)
+      body = CGI.unescapeHTML(response.body)
 
-      expect(json).to include(Article.first.title)
+      expect(body).to include(Article.first.title)
       expect(response).to have_http_status(200)
     end
   end
@@ -27,7 +27,10 @@ RSpec.describe "Articles", type: :request do
 
     it "responds with correct article and status code 200" do
       get article_path(article)
-      
+
+      body = CGI.unescapeHTML(response.body)
+
+      expect(body).to include(Article.first.title)
       expect(response).to have_http_status(200)
     end
   end
