@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Articles", type: :request do
   describe "GET /articles" do
-    let!(:article) {FactoryBot.create(:article)}
+    let!(:article) {FactoryBot.create(:article, title: "Test Title")}
     
     it "responds with article and status code 200" do
       get articles_path
@@ -23,7 +23,7 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "GET /articles/:id" do
-    let(:article) {FactoryBot.create(:article)}
+    let(:article) {FactoryBot.create(:article, title: "Test Title")}
 
     it "responds with correct article and status code 200" do
       get article_path(article)
