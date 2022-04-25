@@ -30,4 +30,22 @@ RSpec.describe Article, type: :model do
       end
     end
   end
+
+  describe "#to_param" do
+    let(:article) {FactoryBot.build(:article, title: "Test Title")}
+
+    context "given an Article that exists in the database" do
+      it "returns the slug" do
+        article.save
+
+        expect(article.to_param).to eq(Article.first.slug)
+      end
+    end
+
+    context "given an Article that don't exist in the database" do
+      it "returns nil" do
+        expect(article.to_param).to be_nil
+      end
+    end
+  end
 end

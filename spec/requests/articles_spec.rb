@@ -25,13 +25,26 @@ RSpec.describe "Articles", type: :request do
   describe "GET /articles/:id" do
     let(:article) {FactoryBot.create(:article, title: "Test Title")}
 
-    it "responds with correct article and status code 200" do
-      get article_path(article)
+    context "when supplied with the slug" do
+      it "responds with correct article and status code 200" do
+        get article_path(article.slug)
 
-      body = CGI.unescapeHTML(response.body)
+        body = CGI.unescapeHTML(response.body)
 
-      expect(body).to include(Article.first.title)
-      expect(response).to have_http_status(200)
+        expect(body).to include(Article.first.title)
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context "when supplied with the id" do
+      it "responds with correct article and status code 200" do
+        get article_path(article.id)
+
+        body = CGI.unescapeHTML(response.body)
+
+        expect(body).to include(Article.first.title)
+        expect(response).to have_http_status(200)
+      end
     end
   end
 
@@ -74,6 +87,7 @@ RSpec.describe "Articles", type: :request do
 
     it "decreases Articles count by 1 and responds with status 303" do
       expect{delete article_path(article)}.to change{Article.count}.by(-1)
+      expect(response).to have_http_status(303)
     end
   end
 end
