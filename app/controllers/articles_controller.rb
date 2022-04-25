@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    @article = find_article(params[:id])
   end
 
   def new
@@ -22,11 +22,11 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
+    @article = find_article(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
+    @article = find_article(params[:id])
 
     if @article.update(article_params)
       redirect_to @article
@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    @article = find_article(params[:id])
     @article.destroy
 
     redirect_to articles_path, status: :see_other
@@ -46,5 +46,9 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :body)
+  end
+
+  def find_article id
+    id.to_i == 0 ? Article.find_by(slug: id) : Article.find(id)
   end
 end
