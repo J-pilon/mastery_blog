@@ -2,20 +2,18 @@
     <h1>Articles Homepage</h1>
 
     <% @articles.each do |article| %>
-
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">
-                    <%= link_to article.title, article %>
+                    <%= link_to article.title, article_path(article) %>
                 </h5>
 
                 <p class="card-text"> <%= article.body %> </p>
             </div>
-
-            <div> <%= link_to "New Article", new_article_path, class: "btn btn-primary d-flex justify-content-center" %> </div>
         </div>
-
     <% end %>
 
-
+    <div class="d-flex justify-content-center align-items-center">
+        <%= link_to "New Article", new_article_path, style: "width: 150px", class: "btn btn-primary" %>
+    </div>
 </div>
