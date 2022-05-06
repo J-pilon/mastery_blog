@@ -9,7 +9,7 @@
 
     <div>
         <%= form.label :body, "Body: ", class: "block mb-2 text-lg font-serif" %>
-        <%= form.text_area :body, size: "30x10", class: "w-full font-serif p-4 outline-none text-gray-600 bg-indigo-50 rounded-md", size: "30x10" %>
+        <%= form.text_area :body, class: "w-full font-serif p-4 outline-none text-gray-600 bg-indigo-50 rounded-md", size: "30x10" %>
         <% @article.errors.full_messages_for(:body).each do |message| %>
             <p style="color: red"><%= message %></p>
         <% end %>
