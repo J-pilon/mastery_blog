@@ -1,6 +1,9 @@
 class ArticlesController < ApplicationController
+  
+  include Pagination
+
   def index
-    @articles = Article.all.order(created_at: :desc)
+    @pagination, @articles = paginate(collection: Article.all.order(created_at: :desc), params: remedy_page_param(page_params))
   end
 
   def show
@@ -48,7 +51,19 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :body)
   end
 
+  def page_params
+    params.permit(:page, :per_page)
+  end
+
   def find_article id
     id.to_i == 0 ? Article.find_by(slug: id) : Article.find(id)
+  end
+
+  def remedy_page_param params
+    if (params[:page].to_i) == 0
+        params[:page] = 1
+    end
+
+    params
   end
 end
