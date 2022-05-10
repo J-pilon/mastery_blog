@@ -1,6 +1,6 @@
-<div class="max-w-2xl mx-auto flex justify-center">
+<div class="max-w-4xl mx-auto flex justify-center">
 	<nav>
-		<ul class="inline-flex -space-x-px">
+		<ul class="flex">
       <% if  pagination.prev_page? %>
         <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           <%= link_to 'First', articles_path(page: 1)%>
@@ -19,7 +19,15 @@
         </li>
       <% end %>
 
-      <li class="flex flex-row bg-white border border-gray-300 text-gray-50 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+      <li class="flex flex-row">
+        <% if pagination.total_pages >= 6 %>
+          <% pagination.pages_range.each do |i| %>
+            <%= link_to(i, articles_path(page: i), class: "bg-white border border-gray-300 text-gray-50 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400") %>
+          <% end %>
+        <% end %>
+      </li>
+
+      <li class="flex flex-row py-2 px-4 bg-white border border-gray-300 text-gray-50 leading-tight dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
         <%= "Page #{pagination.page} of #{pagination.total_pages}" %>
 
         <form method="GET" action="/articles" class="ml-2">

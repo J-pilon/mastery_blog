@@ -76,5 +76,9 @@ module ViewModel
         def total_pages
             per_page == 0 ? 1 : (count / per_page.to_f).ceil
         end
+
+        def pages_range
+            [1, 2, 3, (total_pages - 2), (total_pages - 1), total_pages]
+        end
     end
 end
