@@ -203,6 +203,9 @@ GEM
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
     rubyzip (2.3.2)
+    sanitize (6.0.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.12.0)
     selenium-webdriver (4.1.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -229,6 +232,8 @@ GEM
       railties (>= 6.0.0)
     thor (1.2.1)
     timeout (0.2.0)
+    tinymce-rails (6.0.2)
+      railties (>= 3.1.1)
     turbo-rails (1.0.1)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -268,11 +273,13 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.0)
   rspec-rails
+  sanitize (~> 6.0)
   selenium-webdriver
   simplecov
   sprockets-rails
   stimulus-rails
   tailwindcss-rails (~> 2.0)
+  tinymce-rails (~> 6.0, >= 6.0.2)
   turbo-rails
   tzinfo-data
   web-console
