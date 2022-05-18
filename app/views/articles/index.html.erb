@@ -37,11 +37,11 @@
                         </div>
 
                         <h3 class="title-post font-medium">
-                            <%= link_to article.title, article_path(article) %>
+                            <%= link_to article[:title], article_path(article) %>
                         </h3>
         
                         <p class="summary-post text-base text-justify">
-                            <%= article.body.truncate_words(15) %>
+                            <%= article[:body].truncate_words(15) %>
 
                             <button class="bg-blue-100 text-blue-500 mt-4 block rounded p-2 text-sm"><span class="">Lire plus</span></button>
                         </p>
