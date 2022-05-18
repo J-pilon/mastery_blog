@@ -2,6 +2,7 @@
     <div class="flex">
         <%= form.label :title, "Title: ", class: "text-lx font-serif" %>
         <%= form.text_field :title, class: "w-full ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder: "title" %>
+        
         <% @article.errors.full_messages_for(:title).each do |message| %>
             <p style="color: red"><%= message %></p>
         <% end %>
@@ -9,7 +10,9 @@
 
     <div>
         <%= form.label :body, "Body: ", class: "block mb-2 text-lg font-serif" %>
-        <%= form.text_area :body, class: "w-full font-serif p-4 outline-none text-gray-600 bg-indigo-50 rounded-md", size: "30x10" %>
+        <%= form.text_area :body, class: "tinymce w-full font-serif p-4 outline-none text-gray-600 bg-indigo-50 rounded-md", size: "30x10" %>
+        <%= tinymce %>
+
         <% @article.errors.full_messages_for(:body).each do |message| %>
             <p style="color: red"><%= message %></p>
         <% end %>
