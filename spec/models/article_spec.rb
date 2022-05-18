@@ -48,4 +48,24 @@ RSpec.describe Article, type: :model do
       end
     end
   end
+
+  context 'when Article body is sanitized' do
+    it "blacklisted elements are removed" do
+      html = "<script></script>"
+  
+      a = Article.new({:title => "Title", :body => html})
+      a.valid?
+  
+      expect(a.errors.full_messages_for :body).to include("Body can't be blank")
+      expect(a.body).to eq("")
+    end
+  
+    it "allowlisted elements are not removed" do
+      html = "<p>Heres is the Article body.</p>"
+  
+      a = Article.new({:title => "Title", :body => html})
+      expect(a.valid?).to eq(true)
+      expect(a.body).to eq("<p>Heres is the Article body.</p>")
+    end
+  end
 end
