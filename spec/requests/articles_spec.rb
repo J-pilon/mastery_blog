@@ -9,7 +9,7 @@ RSpec.describe "Articles", type: :request do
 
       body = CGI.unescapeHTML(response.body)
 
-      expect(body).to include(Article.first.title)
+      expect(body).to include(Article.first.title && Article.first.body.truncate_words(15))
       expect(response).to have_http_status(200)
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe "Articles", type: :request do
 
         body = CGI.unescapeHTML(response.body)
 
-        expect(body).to include(Article.first.title)
+        expect(body).to include(Article.first.title && Article.first.body)
         expect(response).to have_http_status(200)
       end
     end
