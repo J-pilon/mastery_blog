@@ -18,6 +18,11 @@
         <% end %>
     </div>
 
+    <div class="flex flex-col my-10">
+        <%= form.label :photo, "Upload an image for your Article: ", class: "block mb-2 text-lg font-serif" %>
+        <%= form.file_field :photo %>
+    </div>
+
     <div class= "px-6 py-2 mx-auto flex justify-center rounded-md text-lg font-semibold text-indigo-100 bg-indigo-600 hover:cursor-pointer">
         <%= form.submit %>
     </div> 

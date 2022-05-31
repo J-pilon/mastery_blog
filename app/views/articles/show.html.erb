@@ -5,7 +5,9 @@
     </div>
 
     <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
-        <h1 class="text-center text-2xl font-bold text-gray-500 mb-10">
+        <%= image_tag(@article.photo) if @article.photo.attached? %>
+
+        <h1 class="pt-10 text-center text-2xl font-bold text-black mb-10">
             <%= @article.title %>
         </h1>
 
