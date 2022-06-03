@@ -57,7 +57,7 @@ jobs:
           PGPASSWORD: postgres
         with: 
           coverageCommand: bin/rspec
-          coverageLocations: coverage/coverage.json:simplecov
+          coverageLocations: coverage/coverage.xml:cobertura
           debug: true
 
       - name: Send coverage report to codecov

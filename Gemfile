@@ -86,6 +86,7 @@ group :test do
   gem "webdrivers"
 
   gem 'simplecov', require: false
+  gem 'simplecov-cobertura', require: false
 end
 
 gem "tailwindcss-rails", "~> 2.0"
