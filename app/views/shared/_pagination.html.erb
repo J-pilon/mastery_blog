@@ -1,23 +1,13 @@
 <div class="max-w-4xl mx-auto mb-8 flex justify-center">
 	<nav>
 		<ul class="flex">
-      <% if  pagination.prev_page? %>
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <%= link_to 'First', articles_path(page: 1)%>
-        </li>
-        
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <%= link_to '< Previous', articles_path(page: pagination.prev_page)%>
-        </li>
-      <% else %>
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          First
-        </li>
-        
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          &#60; Previous
-        </li>
-      <% end %>
+      <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        <%= link_to 'First', articles_path(page: 1), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
+      </li>
+      
+      <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        <%= link_to '< Previous', articles_path(page: pagination.prev_page), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
+      </li>
 
       <li class="flex flex-row">
         <% if pagination.total_pages >= 6 %>
@@ -41,23 +31,13 @@
         </form>
       </li>
 
-      <% if pagination.next_page? %>
         <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <%= link_to 'Next >', articles_path(page: pagination.next_page) %>
+          <%= link_to 'Next >', articles_path(page: pagination.next_page), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
         </li>
 
         <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <%= link_to 'Last', articles_path(page: pagination.total_pages) %>
+          <%= link_to 'Last', articles_path(page: pagination.total_pages), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
         </li>
-      <% else %>
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          Next &#62;
-        </li>
-        
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg ml-0 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          Last
-        </li>
-      <% end %>
     </ul>
   </nav>
 </div>
