@@ -78,7 +78,10 @@ module ViewModel
         end
 
         def pages_range
-            [1, 2, 3, (total_pages - 2), (total_pages - 1), total_pages]
+            first_page_numbers = [1, 2, 3]
+            last_page_numbers = [(total_pages - 2), (total_pages - 1), total_pages]
+
+            first_page_numbers + last_page_numbers
         end
     end
 end
