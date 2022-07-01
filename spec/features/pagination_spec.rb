@@ -23,12 +23,12 @@ RSpec.feature "Paginations", type: :feature do
       expect(page).to have_content(Article.last.title)
     end
 
-    scenario "is rendered as plain text on first page, not as a link" do
+    scenario "has attribute 'pointer-event: none' on first page" do
       FactoryBot.create(:article)
 
       visit articles_path
 
-      expect(find("li", text: "First")).to have_no_link
+      expect(page.has_css?("a", text: "First", class: "pointer-events-none")).to be(true)
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.feature "Paginations", type: :feature do
     scenario "is rendered as plain text on first page, not as a link" do
       visit articles_path
 
-      expect(find("li", text: "< Previous")).to have_no_link
+      expect(page.has_css?("a", text: "< Previous", class: "pointer-events-none")).to be(true)
     end
   end
 
@@ -69,8 +69,8 @@ RSpec.feature "Paginations", type: :feature do
       FactoryBot.create_list(:article, 11)
 
       visit articles_path(page: 2)
-
-      expect(find("li", text: "Next >")).to have_no_link
+      
+      expect(page.has_css?("a", text: "Next >", class: "pointer-events-none")).to be(true)
     end
   end
 
@@ -90,7 +90,7 @@ RSpec.feature "Paginations", type: :feature do
     scenario "is rendered as plain text on last page, not as a link" do
       visit articles_path
 
-      expect(find("li", text: "Last")).to have_no_link
+      expect(page.has_css?("a", text: "Last", class: "pointer-events-none")).to be(true)
     end
   end
 
