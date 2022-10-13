@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'upload_handler/presigned_url'
 
   root "homepage#index"
 
