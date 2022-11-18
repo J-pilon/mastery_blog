@@ -1,4 +1,4 @@
-class UploadController < ApplicationController
+class UploadsController < ApplicationController
   def presigned_url
     ss = StorageService.new
 
