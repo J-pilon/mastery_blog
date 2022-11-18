@@ -50,8 +50,6 @@ gem "bootsnap", require: false
 
 # gem 'bootstrap', '~> 5.1.3'
 
-gem 'tinymce-rails', '~> 6.0', '>= 6.0.2'
-
 gem 'sanitize', '~> 6.0'
 
 # SDK used for image upload to s3
