@@ -2,92 +2,80 @@ require 'rails_helper'
 
 RSpec.describe "Articles", type: :request do
   describe "GET /articles" do
-    let!(:article) {FactoryBot.create(:article, title: "Test Title")}
-    
-    it "responds with article and status code 200" do
+    it "responds with :success status" do
       get articles_path
-
-      body = CGI.unescapeHTML(response.body)
-
-      expect(body).to include(Article.first.title && Article.first.body.truncate_words(15))
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /articles/new" do
-    it "responds with a success status" do
+    it "responds with :success status" do
       get new_article_path
-
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /articles/:id" do
     let(:article) {FactoryBot.create(:article, title: "Test Title")}
 
-    context "when supplied with the slug" do
-      it "responds with correct article and status code 200" do
-        get article_path(article.slug)
-
-        body = CGI.unescapeHTML(response.body)
-
-        expect(body).to include(Article.first.title && Article.first.body)
-        expect(response).to have_http_status(200)
-      end
+    it "responds with :success status when supplied slug" do
+      get article_path(article.slug)
+      expect(response).to have_http_status(:success)
     end
 
-    context "when supplied with the id" do
-      it "responds with correct article and status code 200" do
-        get article_path(article.id)
-
-        body = CGI.unescapeHTML(response.body)
-
-        expect(body).to include(Article.first.title)
-        expect(response).to have_http_status(200)
-      end
+    it "responds with :success status when supplied id" do
+      get article_path(article.id)
+      expect(response).to have_http_status(:success)
     end
   end
 
   describe "POST /articles" do
-    context "with valid attributes" do 
-      it "successfully adds the article and redirects with status code of 302" do
-        expect{post articles_path, :params => {:article => {:title => "This is the new title", :body => "And here is a new body!"}}}.to change{Article.count}.by(1)
+    let(:valid_params) { {article: {title: "title", body: "body"}} }
 
-        expect(response).to have_http_status(302)
+    context "with valid params" do 
+      it "responds with :redirect status" do
+        post articles_path, params: valid_params
+        expect(response).to have_http_status(:redirect)
+      end
+      
+      it "increases Articles count by 1" do
+        expect { post articles_path, params: valid_params }.to change { Article.count }.by(1)
       end
     end
 
-    context "with invalid attributes" do
-      it "responds with status code 422 when title is nil" do
-        post articles_path, :params => {:article => {:title => nil, :body => "Hey! Where's the title??"}}
-
-        expect(response).to have_http_status(422)
+    context "with invalid params" do
+      it "responds with :unprocessable_entity status when title is nil" do
+        post articles_path, params: {article: {title: nil, :body => "body"}}
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it "responds with status code 422 when body is nil" do
-        post articles_path, :params => {:article => {:title => "Hey! Now we're missing the body!", :body => nil}}
-
-        expect(response).to have_http_status(422)
+      it "responds with :unprocessable_entity status when body is nil" do
+        post articles_path, params: {article: {title: "title", body: nil}}
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "PUT /articles/:id" do
-    let(:article) {FactoryBot.create(:article)}
+    let!(:article) {FactoryBot.create(:article)}
 
-    it "redirects after successfully updating article" do
-      put "/articles/#{article.id}", :params => {:article => {:title => "This is a new title", :body => "And heres a new body!"}}
+    it "responds with :redirect status" do
+      put "/articles/#{article.slug}", :params => {:article => {:title => "new title", :body => "new body"}}
 
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(:redirect)
     end
   end
 
   describe "DELETE /articles/:id" do
     let!(:article) {FactoryBot.create(:article)}
 
-    it "decreases Articles count by 1 and responds with status 303" do
-      expect{delete article_path(article)}.to change{Article.count}.by(-1)
-      expect(response).to have_http_status(303)
+    it "responds with :see_other status" do
+      delete article_path(article)
+      expect(response).to have_http_status(:see_other)
+    end
+
+    it "reduces Articles count by 1" do
+      expect { delete article_path(article) }.to change { Article.count }.by(-1)
     end
   end
 end
