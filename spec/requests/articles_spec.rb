@@ -2,30 +2,30 @@ require 'rails_helper'
 
 RSpec.describe "Articles", type: :request do
   describe "GET /articles" do
-    it "responds with :success status" do
+    it "responds with :ok status" do
       get articles_path
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:ok)
     end
   end
 
   describe "GET /articles/new" do
-    it "responds with :success status" do
+    it "responds with :ok status" do
       get new_article_path
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:ok)
     end
   end
 
   describe "GET /articles/:id" do
     let(:article) {FactoryBot.create(:article, title: "Test Title")}
 
-    it "responds with :success status when supplied slug" do
+    it "responds with :ok status when supplied slug" do
       get article_path(article.slug)
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:ok)
     end
 
-    it "responds with :success status when supplied id" do
+    it "responds with :ok status when supplied id" do
       get article_path(article.id)
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:ok)
     end
   end
 
