@@ -148,6 +148,17 @@ RSpec.feature "Paginations", type: :feature do
 
       expect(page).to have_css("h3.title-post", count: 15)
     end
+
+
+    scenario "temp test, show rebase flow", js: true do
+      FactoryBot.create_list(:article, 15)
+
+      visit articles_path
+
+      select('all', from: 'per-page-selector')
+
+      expect(page).to have_css("h3.title-post", count: 15)
+    end
   end
 
   scenario "if an invalid page param is input in the url the first page should be shown" do
