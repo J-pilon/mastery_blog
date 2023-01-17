@@ -2,17 +2,23 @@
 <html>
   <head>
     <title>MasteryBlog</title>
+
+    <script 
+      src="https://cdn.tiny.cloud/1/82i1zra2emdhclzhbkp2fdtnf0oafyx5yxr89bkls8cqaaur/tinymce/6/tinymce.js" 
+      referrerpolicy="origin"
+    >
+    </script>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <%= tinymce_assets %>
   </head>
 
   <body>
-    <main class="pb-8 px-5">
+    <main class="px-5 pb-8">
       <%= yield %>
     </main>
   </body>
