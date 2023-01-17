@@ -43,3 +43,5 @@
 
 # The notes directory contains unfinished work
 /notes/*
+
+.env
