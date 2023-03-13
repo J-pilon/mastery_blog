@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  get 'uploads/presigned_url'
-
   root "homepage#index"
+  
+  get 'users/signup', to: 'users#new'
+  post 'users/create'
+
+  get 'uploads/presigned_url'
 
   resources :articles
 end
