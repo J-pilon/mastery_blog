@@ -4,46 +4,46 @@
     }
 </style>
   
-<section class="blog text-gray-700 body-font">
+<section class="text-gray-700 blog body-font">
     <div class="container px-5 py-24 mx-auto">
-        <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-                Blog
+        <div class="flex flex-col flex-wrap items-center w-full mb-20 text-center">
+            <h1 class="mb-2 text-2xl font-medium text-gray-900 sm:text-3xl title-font">
+                <%= "Welcome #{@profile.first_name}!" %>
             </h1>
 
-            <p class="lg:w-1/2 w-full leading-relaxed text-base">
+            <p class="w-full text-base leading-relaxed lg:w-1/2">
                 J'aime bien partager mes connaissances et des recherche intéressantes, pour le faire j'ai mis en place un blog personnel. Nous abordons plusieurs sujets intéressants et je donne quelques astuces et conseils aux jeunes développeurs pour mieux s'en sortir.
             </p>
 
             <%= link_to "New Article", new_article_path, class:"mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
         </div>
         
-        <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+        <div class="flex flex-wrap -mx-4 -mt-4 -mb-10 sm:-m-4">
 
             <% @articles.each do |article| %>
-                <div class="p-4 md:w-1/3 md:mb-0 mb-6 flex flex-col justify-center items-center max-w-sm mx-auto">
-                    <div class="bg-gray-300 h-56 w-full rounded-lg shadow-md bg-cover bg-center" style=""></div>
+                <div class="flex flex-col items-center justify-center max-w-sm p-4 mx-auto mb-6 md:w-1/3 md:mb-0">
+                    <div class="w-full h-56 bg-gray-300 bg-center bg-cover rounded-lg shadow-md" style=""></div>
     
-                    <div class="w-70 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden p-5">
+                    <div class="p-5 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg w-70">
                     
-                        <div class="header-content inline-flex ">
-                            <div class="category-badge flex-1  h-4 w-4 m rounded-full m-1 bg-purple-100">
-                                <div class="h-2 w-2 rounded-full m-1 bg-purple-500"></div>
+                        <div class="inline-flex header-content ">
+                            <div class="flex-1 w-4 h-4 m-1 bg-purple-100 rounded-full category-badge m">
+                                <div class="w-2 h-2 m-1 bg-purple-500 rounded-full"></div>
                             </div>
 
-                            <div class="category-title flex-1 text-sm">
+                            <div class="flex-1 text-sm category-title">
                                 PHP
                             </div>
                         </div>
 
-                        <h3 class="title-post font-medium">
+                        <h3 class="font-medium title-post">
                             <%= link_to article[:title], article_path(article) %>
                         </h3>
         
-                        <p class="summary-post text-base text-justify">
+                        <p class="text-base text-justify summary-post">
                             <%= article[:body].html_safe.truncate_words(15) %>
 
-                            <button class="bg-blue-100 text-blue-500 mt-4 block rounded p-2 text-sm"><span class="">Lire plus</span></button>
+                            <button class="block p-2 mt-4 text-sm text-blue-500 bg-blue-100 rounded"><span class="">Lire plus</span></button>
                         </p>
                     </div>
                 </div>
