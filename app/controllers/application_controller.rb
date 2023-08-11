@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-
   def current_profile
-    @profile ||= User.first.profile
+    @profile ||= User.profile
   end
 end
