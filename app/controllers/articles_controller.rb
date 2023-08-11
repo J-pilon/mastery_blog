@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-  
   include Pagination
 
   def index
