@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Paginations", type: :feature do
-  Webdrivers::Chromedriver.required_version = '106.0.5249.21'
+  # Webdrivers::Chromedriver.required_version = '106.0.5249.21'
   
   scenario "shows default number of articles" do
     FactoryBot.create_list(:article, 11)
