@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Articles", type: :request do
+  let(:user) { FactoryBot.create(:user) }
+
+  before(:each) do
+    post sessions_path, params: {email: user.email, password: user.password}
+  end
+
   describe "GET /articles" do
     it "responds with :ok status" do
       get articles_path
