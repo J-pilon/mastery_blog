@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "homepage#index"
+  root "articles#index"
   
   resources :registrations, only: :create
   get '/signup', to: 'registrations#new'
