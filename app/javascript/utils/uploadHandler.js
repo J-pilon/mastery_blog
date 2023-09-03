@@ -1,15 +1,20 @@
-export async function imagesUploadHandler(blobInfo, success, failure, progress) {
-    // fetch presigned url for direct browser upload to S3
-    const res = await fetch('/uploads/presigned_url', {method: 'GET'});
-    const { presigned_url, download_url } = await res.json();
-    
-    // upload the file to S3 using presigned url
+export function imagesUploadHandler(blobInfo, _) {return new Promise(async (success, failure) => {
+    const storageServiceUrls = '/uploads/storage_service_urls'
+    const file = blobInfo.blob()
+
     try {
-        const file = blobInfo.blob()
-        await fetch(presigned_url, {method: 'PUT', body: file});
+        const responseFromStorageService = await fetch(storageServiceUrls, {method: 'GET'})
+        if(!responseFromStorageService.ok) {
+            throw `${responseFromStorageService.status} - ${responseFromStorageService.statusText}`
+        }
+        const { presigned_url, download_url } = await responseFromStorageService.json()
+
+        const responseFromUpload = await fetch(presigned_url, {method: 'PUT', body: file})
+        if(!responseFromUpload.ok) {
+          throw `${responseFromUpload.status} - ${responseFromUpload.statusText}`
+        }
         success(download_url)
     } catch (err) {
-        failure(`Image upload failed: ${err.message}`)
+        failure({message: err, remove: true})
     }
-    return download_url
-}
+})}
