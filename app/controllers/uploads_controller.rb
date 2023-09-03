@@ -1,13 +1,16 @@
 class UploadsController < ApplicationController
-  def presigned_url
-    storage_service = StorageService.new(bucket_name: bucket_name, 
-                                         bucket: BucketWrapper.create_bucket(name: bucket_name))
-    render json: { presigned_url: storage_service.presigned_url, download_url: storage_service.download_url }
+  def storage_service_urls
+    storage = StorageService.new(bucket: aws_bucket)
+    render json: { presigned_url: storage.presigned_url, download_url: storage.download_url }
   end
 
   private
+  
+  def aws_bucket
+    Aws::S3::Bucket.new(aws_bucket_name)
+  end
 
-  def bucket_name
-    ENV["AWS_BUCKET_DEV"]
+  def aws_bucket_name
+    ENV["RAILS_ENV"] == "production" ? ENV["AWS_BUCKET_PROD"] : ENV["AWS_BUCKET_DEV"]
   end
 end
