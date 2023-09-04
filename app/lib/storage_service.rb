@@ -24,7 +24,8 @@ class StorageService
   end
   
   def aws_bucket_name
-    ENV["RAILS_ENV"] == "production" ? ENV["AWS_BUCKET_PROD"] : ENV["AWS_BUCKET_DEV"]
+    return ENV["AWS_BUCKET_DEV"] if ENV["RAILS_ENV"] == "development"
+    return "test" if ENV["RAILS_ENV"] == "test"
   end
   
   def create_object
