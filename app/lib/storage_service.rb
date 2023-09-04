@@ -3,26 +3,31 @@ class StorageService
   
   attr_reader :bucket, :object, :object_key
 
-  def initialize(bucket:, object_key: default_object_key)
+  def initialize(bucket: aws_bucket, object_key: default_object_key)
     @bucket = bucket
     @object_key = object_key
     @object = create_object
   end
 
   def download_url
-    return if !object
     object.public_url
   end
 
   def presigned_url
-    return if !object
     object.presigned_url(:put)
   end
 
   private
-
+  
+  def aws_bucket
+    Aws::S3::Bucket.new(aws_bucket_name)
+  end
+  
+  def aws_bucket_name
+    ENV["RAILS_ENV"] == "production" ? ENV["AWS_BUCKET_PROD"] : ENV["AWS_BUCKET_DEV"]
+  end
+  
   def create_object
-    return if !bucket
     bucket.object(object_key)
   end
   

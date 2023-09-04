@@ -1,9 +1,9 @@
 export function imagesUploadHandler(blobInfo, _) {return new Promise(async (success, failure) => {
-    const storageServiceUrls = '/uploads/storage_service_urls'
+    const storageServiceUrl = '/uploads/storage_service'
     const file = blobInfo.blob()
 
     try {
-        const responseFromStorageService = await fetch(storageServiceUrls, {method: 'GET'})
+        const responseFromStorageService = await fetch(storageServiceUrl, {method: 'GET'})
         if(!responseFromStorageService.ok) {
             throw `${responseFromStorageService.status} - ${responseFromStorageService.statusText}`
         }
