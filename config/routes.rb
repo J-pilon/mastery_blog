@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post '/sessions', to: 'sessions#create'
   post '/signout', to: 'sessions#destroy'
 
-  get 'uploads/storage_service_urls'
+  get 'uploads/storage_service'
 
   resources :articles
 end
