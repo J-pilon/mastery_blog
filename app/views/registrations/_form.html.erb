@@ -1,16 +1,18 @@
 <%= form_with(model: @user, url: registrations_path) do |f| %>
   <div class="flex-col mb-4 space-y-2">
-    <div class="flex justify-between">
-      <div>
-        <%= f.label :first_name %>
-        <%= f.text_field :first_name, class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
-      </div>
+    <%= fields_for :profile do |f| %>
+      <div class="flex justify-between">
+        <div>
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
+        </div>
 
-      <div>
-        <%= f.label :last_name %>
-        <%= f.text_field :last_name, class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
+        <div>
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div>
       <%= f.label :email %>
