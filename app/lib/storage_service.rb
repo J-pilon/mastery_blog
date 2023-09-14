@@ -3,7 +3,7 @@ class StorageService
   
   attr_reader :bucket, :object, :object_key
 
-  def initialize(bucket: aws_bucket, object_key: default_object_key)
+  def initialize(bucket:, object_key: default_object_key)
     @bucket = bucket
     @object_key = object_key
     @object = create_object
@@ -14,19 +14,10 @@ class StorageService
   end
 
   def presigned_url
-    object.presigned_url(:put)
+    object.presigned_url(:put, presigned_url_params)
   end
 
   private
-  
-  def aws_bucket
-    Aws::S3::Bucket.new(aws_bucket_name)
-  end
-  
-  def aws_bucket_name
-    return ENV["AWS_BUCKET_DEV"] if ENV["RAILS_ENV"] == "development"
-    return "test" if ENV["RAILS_ENV"] == "test"
-  end
   
   def create_object
     bucket.object(object_key)
