@@ -12,7 +12,7 @@ RSpec.describe Profile, type: :model do
     it 'without first name' do
       profile = FactoryBot.build(:profile, first_name: nil)
       expect(profile).to_not be_valid
-      # expect(profile.errors.full_messages).to eq(["First name can't be blank"])
+      expect(profile.errors.full_messages).to eq(["First name can't be blank"])
     end
 
     it 'without last name' do
