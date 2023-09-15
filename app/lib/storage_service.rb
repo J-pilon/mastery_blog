@@ -14,7 +14,7 @@ class StorageService
   end
 
   def presigned_url
-    object.presigned_url(:put, presigned_url_params)
+    object.presigned_url(:put)
   end
 
   private
