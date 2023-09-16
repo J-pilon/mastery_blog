@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   get '/signin', to: 'sessions#new'
   post '/sessions', to: 'sessions#create'
   post '/signout', to: 'sessions#destroy'
-
+  
   get 'uploads/storage_service'
 
+  resource :profile, only: [:show, :edit, :update], controller: 'profile'
+  
   resources :articles
 end
