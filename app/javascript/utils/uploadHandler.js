@@ -1,6 +1,10 @@
-export function imagesUploadHandler(blobInfo, _) {return new Promise(async (success, failure) => {
+export function imagesUploadHandler(blob, _) {return new Promise(async (success, failure) => {
     const storageServiceUrl = '/uploads/storage_service'
-    const file = blobInfo.blob()
+    let file = blob
+
+    if (!(file instanceof(File)) || !(file instanceof(Blob))) {
+        file = blob.blob()
+    }
 
     try {
         const responseFromStorageService = await fetch(storageServiceUrl, {method: 'GET'})

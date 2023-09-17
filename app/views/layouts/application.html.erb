@@ -25,7 +25,7 @@
 
       <% if logged_in? && !["sessions", "registrations"].include?(controller_name) %>
         <%= link_to profile_path(id: current_profile), class: "h-full" do %>
-          <div class="h-12 p-2 overflow-hidden border-2 border-black border-solid rounded-full">
+          <div class="w-12 h-12 overflow-hidden border-2 border-black border-solid rounded-full">
             <img src=<%= profile_image_url(current_profile) %> alt="" class="h-full object-fit">
           </div>
         <% end %>
