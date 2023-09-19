@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   include Pagination
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @pagination, @articles = paginate(collection: Article.all.order(created_at: :desc), params: remedy_page_param(page_params))
