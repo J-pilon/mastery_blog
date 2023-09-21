@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = current_profile.articles.build(article_params)
 
     if @article.save
       redirect_to @article
@@ -27,10 +27,12 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = find_article(params[:id])
+    is_unauthorized?(@article, "show")
   end
 
   def update
     @article = find_article(params[:id])
+    return if is_unauthorized?(@article, "show")
 
     if @article.update(article_params)
       redirect_to @article
@@ -41,6 +43,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = find_article(params[:id])
+    return if is_unauthorized?(@article, "show")
     @article.destroy
 
     redirect_to articles_path, status: :see_other
@@ -66,5 +69,13 @@ class ArticlesController < ApplicationController
     end
 
     params
+  end
+
+  def is_unauthorized?(article, destination)
+    destination = destination.to_sym
+    if article.profile.id != current_profile.id
+      render destination, status: :unauthorized
+      return true
+    end
   end
 end
