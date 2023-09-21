@@ -22,7 +22,8 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "GET /articles/:id" do
-    let(:article) {FactoryBot.create(:article, title: "Test Title")}
+    let(:profile) { FactoryBot.create(:profile) }
+    let(:article) { FactoryBot.create(:article, title: "Test Title", profile: profile) }
 
     it "responds with :ok status when supplied slug" do
       get article_path(article.slug)
@@ -36,12 +37,13 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "POST /articles" do
+    let!(:profile) { FactoryBot.create(:profile) }
     let(:valid_params) { {article: {title: "title", body: "body"}} }
 
     context "with valid params" do 
-      it "responds with :redirect status" do
+      it "responds with status 302" do
         post articles_path, params: valid_params
-        expect(response).to have_http_status(:redirect)
+        expect(response).to have_http_status(302)
       end
       
       it "increases Articles count by 1" do
@@ -60,28 +62,81 @@ RSpec.describe "Articles", type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
+
+    context 'when user isn\'t authenticated' do
+      it "responds with status 302" do
+        post signout_path
+
+        post articles_path, params: {article: {title: "title", body: nil}}
+        expect(response).to have_http_status(302)
+      end
+    end
   end
 
+  describe 'GET /articles/:id/edit' do
+    let(:article) { FactoryBot.create(:article, profile: user.profile) }
+
+    it 'responds with status 200' do
+      get edit_article_path(article)
+      expect(response).to have_http_status(200)
+    end
+  end
+  
+
   describe "PUT /articles/:id" do
-    let!(:article) {FactoryBot.create(:article)}
+    let(:article) { FactoryBot.create(:article, profile: user.profile) }
+    let(:put_article) { put "/articles/#{article.slug}", :params => {:article => {:title => "new title", :body => "new body"}} }
 
-    it "responds with :redirect status" do
-      put "/articles/#{article.slug}", :params => {:article => {:title => "new title", :body => "new body"}}
+    it "responds with status 302" do
+      put_article
+      expect(response).to have_http_status(302)
+    end
 
-      expect(response).to have_http_status(:redirect)
+    context 'when unauthorized' do
+      let!(:second_user) { FactoryBot.create(:user) }
+
+      it "responds with status 401" do
+        post signout_path
+        post sessions_path, params: {email: second_user.email, password: second_user.password}
+        
+        put_article
+        expect(response).to have_http_status(401)
+      end
     end
   end
 
   describe "DELETE /articles/:id" do
-    let!(:article) {FactoryBot.create(:article)}
+    let!(:article) { FactoryBot.create(:article, profile: user.profile) }
 
-    it "responds with :see_other status" do
-      delete article_path(article)
-      expect(response).to have_http_status(:see_other)
+    context 'when authorized' do
+      it "responds with :see_other status" do
+        delete article_path(article)
+        expect(response).to have_http_status(:see_other)
+      end
+  
+      it "reduces Articles count by 1" do
+        expect { delete article_path(article) }.to change { Article.count }.by(-1)
+      end
     end
+    
 
-    it "reduces Articles count by 1" do
-      expect { delete article_path(article) }.to change { Article.count }.by(-1)
+    context 'when unauthorized' do
+      let!(:second_user) { FactoryBot.create(:user) }
+      let(:signin_as_second_user) do
+        post signout_path
+        post sessions_path, params: {email: second_user.email, password: second_user.password}
+      end
+
+      it "responds with 401 status" do
+        signin_as_second_user
+        delete article_path(article)
+        expect(response).to have_http_status(401)
+      end
+  
+      it "Articles count changes by 0" do
+        signin_as_second_user
+        expect { delete article_path(article) }.to change { Article.count }.by(0)
+      end
     end
   end
 end

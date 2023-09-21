@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Article, type: :model do
+  let(:profile) { FactoryBot.create(:profile) }
+
   describe "is valid" do
     it "when title and body are present" do
-      article = FactoryBot.build(:article)
+      article = FactoryBot.build(:article, profile: profile)
 
       expect(article).to be_valid
     end
@@ -32,12 +34,11 @@ RSpec.describe Article, type: :model do
   end
 
   describe "#to_param" do
-    let(:article) {FactoryBot.build(:article, title: "Test Title")}
+    let(:article) {FactoryBot.build(:article, title: "Test Title", profile: profile)}
 
     context "given an Article that exists in the database" do
       it "returns the slug" do
         article.save
-
         expect(article.to_param).to eq(Article.first.slug)
       end
     end
@@ -53,19 +54,19 @@ RSpec.describe Article, type: :model do
     it "blacklisted elements are removed" do
       html = "<script></script>"
   
-      a = Article.new({:title => "Title", :body => html})
-      a.valid?
+      article = FactoryBot.build(:article, title: "Title", body: html)
+      article.valid?
   
-      expect(a.errors.full_messages_for :body).to include("Body can't be blank")
-      expect(a.body).to eq("")
+      expect(article.errors.full_messages_for :body).to include("Body can't be blank")
+      expect(article.body).to eq("")
     end
   
     it "allowlisted elements are not removed" do
       html = "<p>Heres is the Article body.</p>"
   
-      a = Article.new({:title => "Title", :body => html})
-      expect(a.valid?).to eq(true)
-      expect(a.body).to eq("<p>Heres is the Article body.</p>")
+      article = FactoryBot.build(:article, title: "Title", body: html, profile: profile)
+      expect(article.valid?).to eq(true)
+      expect(article.body).to eq("<p>Heres is the Article body.</p>")
     end
   end
 end
