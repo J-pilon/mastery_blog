@@ -60,6 +60,13 @@ RSpec.describe "Articles", type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
+
+    context 'when user isn\'t authenticated' do
+      it "responds with status 302" do
+        post signout_path
+
+        post articles_path, params: {article: {title: "title", body: nil}}
+        expect(response).to have_http_status(302)
   end
 
   describe "PUT /articles/:id" do
