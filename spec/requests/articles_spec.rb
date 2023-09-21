@@ -90,15 +90,37 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "DELETE /articles/:id" do
-    let!(:article) {FactoryBot.create(:article)}
+    let!(:article) { FactoryBot.create(:article, profile: user.profile) }
 
-    it "responds with :see_other status" do
-      delete article_path(article)
-      expect(response).to have_http_status(:see_other)
+    context 'when authorized' do
+      it "responds with :see_other status" do
+        delete article_path(article)
+        expect(response).to have_http_status(:see_other)
+      end
+  
+      it "reduces Articles count by 1" do
+        expect { delete article_path(article) }.to change { Article.count }.by(-1)
+      end
     end
+    
 
-    it "reduces Articles count by 1" do
-      expect { delete article_path(article) }.to change { Article.count }.by(-1)
+    context 'when unauthorized' do
+      let!(:second_user) { FactoryBot.create(:user) }
+      let(:signin_as_second_user) do
+        post signout_path
+        post sessions_path, params: {email: second_user.email, password: second_user.password}
+      end
+
+      it "responds with 401 status" do
+        signin_as_second_user
+        delete article_path(article)
+        expect(response).to have_http_status(401)
+      end
+  
+      it "Articles count changes by 0" do
+        signin_as_second_user
+        expect { delete article_path(article) }.to change { Article.count }.by(0)
+      end
     end
   end
 end
