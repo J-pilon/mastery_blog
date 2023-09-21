@@ -1,0 +1,20 @@
+<div>
+  <%= form_with(model: @user, url: sign_up_path, class: "flex flex-col justify-center items-center -inset-y-4") do |f| %>
+    <div class="flex flex-row items-center">
+      <%= f.label :email %>
+      <%= f.text_field :email, placeholder: "Email" %>
+    </div>
+    
+    <div class="flex flex-row items-center">
+      <%= f.label :password %>
+      <%= f.password_field :password, placeholder: "Password" %>
+    </div>
+    
+    <div class="flex flex-row items-center">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, placeholder: "Confirm Password" %>
+    </div>
+
+    <%= f.submit "Sign Up", class: "border-4 border-solid border-black" %>
+  <% end %>
+</div>

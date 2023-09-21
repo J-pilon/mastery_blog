@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'sign-up', to: 'registration#new'
+  post 'sign-up', to: 'registration#create'
+
   get 'upload_handler/presigned_url'
 
   root "homepage#index"
