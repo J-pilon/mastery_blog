@@ -70,11 +70,21 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "PUT /articles/:id" do
-    let!(:article) {FactoryBot.create(:article)}
+    let(:article) { FactoryBot.create(:article, profile: user.profile) }
+    let(:put_article) { put "/articles/#{article.slug}", :params => {:article => {:title => "new title", :body => "new body"}} }
 
-    it "responds with :redirect status" do
-      put "/articles/#{article.slug}", :params => {:article => {:title => "new title", :body => "new body"}}
+    it "responds with status 302" do
+      put_article
+      expect(response).to have_http_status(302)
+    end
 
+    context 'when unauthorized' do
+      let!(:second_user) { FactoryBot.create(:user) }
+
+      it "responds with status 401" do
+        post signout_path
+        post sessions_path, params: {email: second_user.email, password: second_user.password}
+        
       expect(response).to have_http_status(:redirect)
     end
   end
