@@ -67,7 +67,19 @@ RSpec.describe "Articles", type: :request do
 
         post articles_path, params: {article: {title: "title", body: nil}}
         expect(response).to have_http_status(302)
+      end
+    end
   end
+
+  describe 'GET /articles/:id/edit' do
+    let(:article) { FactoryBot.create(:article, profile: user.profile) }
+
+    it 'responds with status 200' do
+      get edit_article_path(article)
+      expect(response).to have_http_status(200)
+    end
+  end
+  
 
   describe "PUT /articles/:id" do
     let(:article) { FactoryBot.create(:article, profile: user.profile) }
