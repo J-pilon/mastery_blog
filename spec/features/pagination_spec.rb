@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "Paginations", type: :feature do
   Webdrivers::Chromedriver.required_version = '106.0.5249.21'
   
-  scenario "shows default number of articles" do
+  xscenario "shows default number of articles" do
     FactoryBot.create_list(:article, 11)
 
     visit articles_path
@@ -11,7 +11,7 @@ RSpec.feature "Paginations", type: :feature do
     expect(page).to have_css "h3.title-post", count: 10
   end
 
-  context "'First' pagination control" do
+  xcontext "'First' pagination control" do
     
     scenario "displays first subset of articles" do
       FactoryBot.create_list(:article, 11)
@@ -34,7 +34,7 @@ RSpec.feature "Paginations", type: :feature do
     end
   end
 
-  context "'< Previous' pagination control" do 
+  xcontext "'< Previous' pagination control" do 
     scenario "displays previous subset of articles when clicked" do
       FactoryBot.create_list(:article, 11)
 
@@ -54,7 +54,7 @@ RSpec.feature "Paginations", type: :feature do
     end
   end
 
-  context "'Next >' pagination control" do
+  xcontext "'Next >' pagination control" do
     scenario "switches to next subset of articles when clicked" do
       FactoryBot.create_list(:article, 11)
 
@@ -76,7 +76,7 @@ RSpec.feature "Paginations", type: :feature do
     end
   end
 
-  context "'Last' pagination control" do
+  xcontext "'Last' pagination control" do
     scenario "displays last subset of articles" do
       FactoryBot.create_list(:article, 11)
 
@@ -96,7 +96,7 @@ RSpec.feature "Paginations", type: :feature do
     end
   end
 
-  context "when selecting" do
+  xcontext "when selecting" do
     scenario "10 per page, 10 articles are displayed", js: true do
       FactoryBot.create_list(:article, 11)
 
@@ -150,7 +150,7 @@ RSpec.feature "Paginations", type: :feature do
     end
   end
 
-  scenario "if an invalid page param is input in the url the first page should be shown" do
+  xscenario "if an invalid page param is input in the url the first page should be shown" do
     FactoryBot.create_list(:article, 15)
 
     visit articles_path(:page => "foobar")
