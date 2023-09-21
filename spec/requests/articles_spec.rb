@@ -22,7 +22,8 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "GET /articles/:id" do
-    let(:article) {FactoryBot.create(:article, title: "Test Title")}
+    let(:profile) { FactoryBot.create(:profile) }
+    let(:article) { FactoryBot.create(:article, title: "Test Title", profile: profile) }
 
     it "responds with :ok status when supplied slug" do
       get article_path(article.slug)
@@ -36,12 +37,13 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "POST /articles" do
+    let!(:profile) { FactoryBot.create(:profile) }
     let(:valid_params) { {article: {title: "title", body: "body"}} }
 
     context "with valid params" do 
-      it "responds with :redirect status" do
+      it "responds with status 302" do
         post articles_path, params: valid_params
-        expect(response).to have_http_status(:redirect)
+        expect(response).to have_http_status(302)
       end
       
       it "increases Articles count by 1" do
@@ -97,7 +99,9 @@ RSpec.describe "Articles", type: :request do
         post signout_path
         post sessions_path, params: {email: second_user.email, password: second_user.password}
         
-      expect(response).to have_http_status(:redirect)
+        put_article
+        expect(response).to have_http_status(401)
+      end
     end
   end
 
