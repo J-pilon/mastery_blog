@@ -1,0 +1,13 @@
+<div>
+  <h1 class="text-4xl font-bold">Authors</h1>
+  
+  <div class="flex flex-col items-center">
+    <% @authors.each do |author| %>
+      <%= link_to(author_path(author), class: "authors-contrainer") do %>
+        <h2 class="text-4xl font-bold"><%= "#{author.first_name} #{author.last_name}" %></h2>
+
+        <p><%= author.bio %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

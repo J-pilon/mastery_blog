@@ -4,6 +4,8 @@ class Article < ApplicationRecord
     validates :title, presence: true
     validates :body, presence: true
 
+    belongs_to :author
+
     before_validation :sanitize_body
     after_validation :set_slug
 

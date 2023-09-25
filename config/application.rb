@@ -20,11 +20,12 @@ module MasteryBlog
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.generators do |g|
-      g.helper false
-      g.test_framework :rspec,
-      routing_spec: false,
-      view_spec: false,
-      helper_spec: false
+      g.test_framework = :rspec
+      g.helper_specs = false
+      g.view_specs = false
+      g.routing_specs = false
+      g.helper = false
+      g.stylesheet = false
     end
   end
 end

@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
-
   textarea {
     border-color: transparent;
+  }
+  
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-200;
+  }
+
+  .authors-contrainer {
+    @apply flex flex-col justify-center items-center border-solid border-2 border-blue-800 shadow-md rounded-md min-h-[5rem] m-4 w-[42rem] bg-blue-200
   }
 }

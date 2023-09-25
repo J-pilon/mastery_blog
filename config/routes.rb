@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   post 'signin', to: 'sessions#create'
   post 'signout', to: 'sessions#destroy'
 
+  resources :authors
+
   get 'upload_handler/presigned_url'
 
   root "homepage#index"
