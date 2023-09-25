@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'uploads/storage_service'
 
   resource :profile, only: [:show, :edit, :update], controller: 'profile'
+
+  resource :user, only: [:edit, :update], controller: 'user'
   
   resources :articles
 end
