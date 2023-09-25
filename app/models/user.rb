@@ -9,4 +9,8 @@ class User < ApplicationRecord
     self.reset_token = token
     self.reset_token_expiry = DateTime.now + 30.minutes
   end
+
+  def is_reset_token_valid?
+    DateTime.now < self.reset_token_expiry
+  end
 end
