@@ -27,6 +27,9 @@ class PasswordController < ApplicationController
     end
   end
 
+  def email_sent
+  end
+
   private
 
   def password_params
