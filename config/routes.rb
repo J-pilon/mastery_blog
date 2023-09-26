@@ -10,6 +10,12 @@ Rails.application.routes.draw do
   get 'uploads/storage_service'
 
   resource :profile, only: [:show, :edit, :update], controller: 'profile'
+
+  resource :users do
+    resource :password, only: [:new, :create, :edit, :update], controller: 'password' do
+      get '/email-sent', to: 'password#email_sent'
+    end
+  end
   
   resources :articles
 end
