@@ -6,8 +6,11 @@ class User < ApplicationRecord
 
   def generate_reset_token
     token = SecureRandom.uuid
-    self.reset_token = token
-    self.reset_token_expiry = DateTime.now + 30.minutes
+    begin
+      self.reset_token = token
+      self.reset_token_expiry = DateTime.now + 30.minutes
+      true
+    end
   end
 
   def is_reset_token_valid?
