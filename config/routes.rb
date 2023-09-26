@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   resource :profile, only: [:show, :edit, :update], controller: 'profile'
 
-  resource :user, only: [:edit, :update], controller: 'user'
+  resource :users do
+    resource :password, only: [:new, :create, :edit, :update], controller: 'password'
+  end
   
   resources :articles
 end
