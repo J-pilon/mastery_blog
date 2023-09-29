@@ -87,8 +87,6 @@ group :test do
 
   gem 'simplecov', require: false
   gem 'simplecov-cobertura', require: false
+  gem "vcr", "~> 6.2"
+  gem "webmock", "~> 3.19"
 end
-
-gem "tailwindcss-rails", "~> 2.0"
-
-gem "faker", "~> 3.2"
