@@ -14,7 +14,10 @@ class PasswordController < ApplicationController
   end
 
   def edit
-    @user = User.find_by(params[:email])
+    @user = User.find_by(email: params[:email])
+    if !@user.is_reset_token_valid?(params[:reset_token])
+      render :new, status: :unprocessable_entity, message: "Invalid Token: please try again"
+    end
   end
 
   def update
