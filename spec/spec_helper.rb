@@ -22,6 +22,8 @@ SimpleCov.start
 require 'simplecov-cobertura'
 SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 
+require 'vcr'
+require 'webmock/rspec'
 require 'faker'
 
 RSpec.configure do |config|
@@ -54,6 +56,27 @@ RSpec.configure do |config|
   # inherited by the metadata hash of host groups and examples, rather than
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.before(:each) do
+    stub_request(:put, "http://169.254.169.254/latest/api/token").
+    with(
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'User-Agent'=>'aws-sdk-ruby3/3.183.0',
+      'X-Aws-Ec2-Metadata-Token-Ttl-Seconds'=>'21600'
+      }).
+    to_return(status: 200, body: "123abc", headers: {})
+
+    stub_request(:get, "http://169.254.169.254/latest/meta-data/iam/security-credentials/").
+    with(
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'User-Agent'=>'aws-sdk-ruby3/3.183.0'
+      }).
+    to_return(status: 200, body: "", headers: {})
+  end
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
