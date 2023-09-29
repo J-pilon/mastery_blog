@@ -9,7 +9,7 @@ class User < ApplicationRecord
     update(reset_token_expiry: DateTime.now + 30.minutes, reset_token: token)
   end
 
-  def is_reset_token_valid?
-    DateTime.now < self.reset_token_expiry
+  def is_reset_token_valid?(token)
+    DateTime.now < reset_token_expiry && reset_token == token
   end
 end
