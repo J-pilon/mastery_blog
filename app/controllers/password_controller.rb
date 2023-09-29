@@ -1,11 +1,11 @@
 class PasswordController < ApplicationController
-  before_action :find_user_by_email, only: [:create, :update]
 
   def new
     @user = User.new
   end
 
   def create
+    @user = User.find_by(email: params[:user][:email])
     if @user && @user.generate_reset_token && aws_email_service.send_email!
       redirect_to email_sent_users_password_path
     else
@@ -15,17 +15,16 @@ class PasswordController < ApplicationController
 
   def edit
     @user = User.find_by(email: params[:email])
-    if !@user.is_reset_token_valid?(params[:reset_token])
+    if @user && !@user.is_reset_token_valid?(params[:reset_token])
       render :new, status: :unprocessable_entity, message: "Invalid Token: please try again"
     end
   end
 
   def update
-    @user = User.find_by(params[:email])
-
-    if @user.update(password_params)
+    @user = User.find_by(email: params[:email])
+    if @user && @user.update(password: params[:user][:password])
       redirect_to signin_path
-    else
+    elsif 
       render :edit, status: :unprocessable_entity
     end
   end
@@ -35,16 +34,12 @@ class PasswordController < ApplicationController
 
   private
 
-  def find_user_by_email
-    @user = User.find_by(email: params[:user][:email])
-  end
-
   def password_params
     params.require(:user).permit(:password)
   end
 
   def aws_email_service
-    edit_users_password_link = edit_users_password_path(reset_token: @user.reset_token)
+    edit_users_password_link = edit_users_password_path(email: @user.email, reset_token: @user.reset_token)
 
     EmailService.new(client: aws_ses_client, 
                       users: @user, 
