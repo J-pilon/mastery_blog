@@ -29,29 +29,50 @@ RSpec.describe User, type: :model do
     end
   end
 
-  it 'generates a reset token' do
-    user = FactoryBot.create(:user)
-    user.generate_reset_token
-    expect(user.reset_token).to match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
-  end
+  context 'when reset token' do
+    let(:user) { FactoryBot.create(:user) }
 
-  it 'reset token expires in 30 minutes' do
-    predicted_expiry_time = DateTime.now + 30.minutes
-    user = FactoryBot.create(:user)
-    user.generate_reset_token
-    expect(user.reset_token_expiry.round(0)).to eq(predicted_expiry_time.utc.round(0))
-  end
+    it 'is generated' do
+      user.generate_reset_token
+      expect(user.reset_token).to match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
+    end
   
-  it 'reset token is invalid after expiry time' do
-    user = FactoryBot.create(:user)
-    user.generate_reset_token
-    user.reset_token_expiry = (DateTime.now - 30.minutes).utc
-    expect(user.is_reset_token_valid?).to be(false)
+    it 'expires in 30 minutes' do
+      predicted_expiry_time = DateTime.now + 30.minutes
+      user.generate_reset_token
+      expect(user.reset_token_expiry).to be_within(1.second).of(predicted_expiry_time.utc)
+    end
+  end
+    
+  context 'when reset token is valid' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'before expiry time' do
+      user = FactoryBot.create(:user)
+      user.generate_reset_token
+      expect(user.is_reset_token_valid?(user.reset_token)).to be(true)
+    end
+  
+    it 'if tokens match' do
+      user.generate_reset_token
+      expect(user.is_reset_token_valid?(user.reset_token)).to be(true)
+    end
   end
 
-  it 'reset token is valid before expiry time' do
-    user = FactoryBot.create(:user)
-    user.generate_reset_token
-    expect(user.is_reset_token_valid?).to be(true)
+  context 'when reset token is invalid' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'after expiry time' do
+      user = FactoryBot.create(:user)
+      user.generate_reset_token
+      user.reset_token_expiry = (DateTime.now - 30.minutes).utc
+      expect(user.is_reset_token_valid?(user.reset_token)).to be(false)
+    end
+    
+    it 'if tokens don\'t match' do
+      invalid_token = "invalid_token"
+      user.generate_reset_token
+      expect(user.is_reset_token_valid?(invalid_token)).to be(false)
+    end
   end
 end
