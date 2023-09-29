@@ -21,7 +21,6 @@ class PasswordController < ApplicationController
   end
 
   def update
-    @user = User.find_by(email: params[:email])
     if @user && @user.update(password: params[:user][:password])
       redirect_to signin_path
     elsif 
