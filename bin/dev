@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-if ! command -v overmind &> /dev/null
+if ! command -v foreman &> /dev/null
 then
-  echo "Installing overmind via homebrew..."
-  brew install overmind
+  echo "Installing foreman..."
+  gem install foreman
 fi
 
-# foreman start -f Procfile.dev
-overmind start -f Procfile.dev
+foreman start -f Procfile.dev "$@"
