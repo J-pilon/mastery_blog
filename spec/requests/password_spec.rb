@@ -67,5 +67,14 @@ RSpec.describe "Password", type: :request do
         expect(response).to have_http_status(422)
       end
     end
+
+    context 'when email is invalid' do
+      it "returns http status 422" do
+        user.generate_reset_token
+        user_password_params = {email: "wrong email", user: {password: "new password", password_confirmation: "new password"}}
+        put users_password_path, params: user_password_params
+        expect(response).to have_http_status(422)
+      end
+    end
   end
 end
