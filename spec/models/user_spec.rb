@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:token_time_limit) { DateTime.now - 5.minutes }
+
   context 'is valid' do
     it 'with factory' do
       user = FactoryBot.build(:user)
@@ -37,10 +39,9 @@ RSpec.describe User, type: :model do
       expect(user.reset_token).to match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
     end
   
-    it 'expires in 30 minutes' do
-      predicted_expiry_time = DateTime.now + 30.minutes
+    it 'expires after time limit' do
       user.generate_reset_token
-      expect(user.reset_token_expiry).to be_within(1.second).of(predicted_expiry_time.utc)
+      expect(user.reset_token_expiry).to be_within(1.second).of(token_time_limit.utc)
     end
   end
     
@@ -65,7 +66,7 @@ RSpec.describe User, type: :model do
     it 'after expiry time' do
       user = FactoryBot.create(:user)
       user.generate_reset_token
-      user.reset_token_expiry = (DateTime.now - 30.minutes).utc
+      user.reset_token_expiry = token_time_limit.utc
       expect(user.is_reset_token_valid?(user.reset_token)).to be(false)
     end
     
