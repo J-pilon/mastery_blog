@@ -42,10 +42,20 @@ RSpec.describe "Password", type: :request do
   end
 
   describe "GET users/password/edit" do
-    it "returns http status 200" do
-      user.generate_reset_token
-      get edit_users_password_path, params: {email: user.email, reset_token: user.reset_token}
-      expect(response).to have_http_status(200)
+    context 'when params are valid' do
+      it "returns http status 200" do
+        user.generate_reset_token
+        get edit_users_password_path, params: {email: user.email, reset_token: user.reset_token}
+        expect(response).to have_http_status(200)
+      end
+    end
+    
+    context 'when params are invalid' do
+      it "returns http status 422" do
+        user.generate_reset_token
+        get edit_users_password_path, params: {email: user.email, reset_token: "wrong token"}
+        expect(response).to have_http_status(422)
+      end
     end
   end
 
