@@ -11,7 +11,7 @@ RSpec.describe "Password", type: :request do
   end
 
   describe "POST users/password" do
-    let(:email_service_stub) { allow_any_instance_of(EmailService).to receive(:send_email!).and_return(true) }
+    let(:email_service_stub) { allow_any_instance_of(EmailService).to receive(:send!).and_return(true) }
 
     context 'when params are valid' do
       it "returns http status 302" do
@@ -59,7 +59,7 @@ RSpec.describe "Password", type: :request do
       end
     end
 
-    context 'when params are invalid' do
+    context 'when password is invalid' do
       it "returns http status 422" do
         user.generate_reset_token
         user_password_params = {email: user.email, user: {password: nil, password_confirmation: nil}}

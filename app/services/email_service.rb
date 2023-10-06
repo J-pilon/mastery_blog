@@ -9,7 +9,7 @@ class EmailService
     @link = link
   end
 
-  def send_email!
+  def send!
     begin
       response = client.send_email(template)
       response.to_h

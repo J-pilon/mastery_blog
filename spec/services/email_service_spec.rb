@@ -11,12 +11,12 @@ RSpec.describe "EmailService" do
   end
 
   it "responds to send!" do 
-    expect(valid_email_service.respond_to?(:send_email!)).to be(true)
+    expect(valid_email_service.respond_to?(:send!)).to be(true)
   end
 
   context 'when valid' do
-    it "returns responds with a message id" do
-      expect(valid_email_service.send_email!).to eq({message_id: "MessageId"})
+    it "returns a message id" do
+      expect(valid_email_service.send!).to eq({message_id: "MessageId"})
     end
   end
 end
