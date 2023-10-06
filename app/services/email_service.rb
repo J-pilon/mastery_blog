@@ -81,6 +81,6 @@ class EmailService
   end
 
   def sender
-    'mastery_blog@yahoo.com'
+    ENV["EMAIL_SENDER"]
   end
 end
