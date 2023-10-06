@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <%= f.hidden_field :email, value: @user.email if @user %>
+    <%= f.hidden_field :email, value: @user&.email %>
 
     <%= f.submit "Reset Password", class: "btn-primary" %>
   </div>

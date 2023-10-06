@@ -6,7 +6,7 @@ class PasswordController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:user][:email])
-    if @user && @user.generate_reset_token && aws_email_service.send_email!
+    if @user&.generate_reset_token && email_service.send!
       redirect_to email_sent_users_password_path
     else
       render :new, status: :unprocessable_entity
@@ -14,15 +14,15 @@ class PasswordController < ApplicationController
   end
 
   def edit
-    @user = User.find_by(email: params[:email])
-    if @user && !@user.is_reset_token_valid?(params[:reset_token])
+    @user = User.find_by(email: params[:email], reset_token: params[:reset_token])
+    if !@user&.is_reset_token_valid?
       render :new, status: :unprocessable_entity, message: "Invalid Token: please try again"
     end
   end
 
   def update
     @user = User.find_by(email: params[:email])
-    if @user && @user.update(password: params[:user][:password])
+    if @user&.update(password: params[:user][:password])
       redirect_to signin_path
     elsif 
       render :edit, status: :unprocessable_entity
