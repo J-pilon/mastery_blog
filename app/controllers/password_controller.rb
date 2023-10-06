@@ -38,16 +38,16 @@ class PasswordController < ApplicationController
     params.require(:user).permit(:password)
   end
 
-  def aws_email_service
+  def email_service(client=aws_email_client)
     edit_users_password_link = edit_users_password_path(email: @user.email, reset_token: @user.reset_token)
 
-    EmailService.new(client: aws_ses_client, 
+    EmailService.new(client: client, 
                       users: @user, 
                       type: "password_reset_email",
                       link: edit_users_password_link)
   end
 
-  def aws_ses_client
+  def aws_email_client
     Aws::SES::Client.new
   end
 end
