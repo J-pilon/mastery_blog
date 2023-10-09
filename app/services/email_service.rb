@@ -1,18 +1,18 @@
 class EmailService
 
-  attr_reader :client, :users, :type, :link
+  attr_reader :client, :user, :contents, :link
 
-  def initialize(client:, users:, type:, link: nil)
+  def initialize(client:, user:, contents:, link: nil)
     @client = client
-    @users = Array(users)
-    @type = type
+    @user = user
+    @contents = contents
     @link = link
   end
 
   def send!
     begin
-      response = client.send_email(template)
-      response.to_h
+      resp = client.send_email(template)
+      resp
     rescue Aws::SES::Errors::ServiceError => error
       puts "Email not sent. Error message: #{error}"
     end
@@ -20,39 +20,10 @@ class EmailService
 
   private
 
-  def recipients
-    users.map { |u| u.email }
-  end
-
-  def subject
-    email_contents[:subject]
-  end
-
-  def html_body
-    return html_body_with_link if link
-    email_contents[:html_body]
-  end
-
-  # def personalized_body(first_name)
-  #   personalized_body = email_contents[:html_body].dup
-  #   personalized_body['<first_name>'] = first_name
-  # end
-
-  def encoding
-    email_contents[:encoding]
-  end
-
-  def email_contents
-    # what if there is a typeo in type?
-    # how should you handle that?
-    # the email type should be an enum
-    @email_contents ||= I18n.t(type.to_sym)
-  end
-
   def template
     {
       destination: {
-        to_addresses: recipients,
+        to_addresses: [user.email],
       },
       message: {
         body: {
@@ -60,10 +31,6 @@ class EmailService
             charset: encoding,
             data: html_body,
           }
-          # text: {
-          #   charset: encoding,
-          #   data: "This is a test",
-          # },
         },
         subject: {
           charset: encoding,
@@ -71,16 +38,35 @@ class EmailService
         },
       },
       source: sender
-      # configuration_set_name: configsetname
     }
   end
 
-  def html_body_with_link
-    email_contents_dup = email_contents[:html_body].dup
-    email_contents_dup['href'] = "href=#{link}"
+  def subject
+    contents[:subject]
+  end
+
+  def html_body
+    body = contents[:html_body]
+    personalized = personalize(body)
+    add_link(personalized)
+  end
+  
+  def encoding
+    contents[:encoding]
+  end
+
+  def personalize(contents)
+    return contents unless contents['<first_name>'] 
+    contents.gsub!('<first_name>', user.profile.first_name)
+  end
+
+  def add_link(contents)
+    return contents unless contents['href'] && link
+    # return contents if !contents['href'] && link
+    contents.gsub!('href', 'href=#{link}')
   end
 
   def sender
-    ENV["EMAIL_SENDER"]
+    ENV['EMAIL_SENDER']
   end
 end

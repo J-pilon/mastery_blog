@@ -42,8 +42,8 @@ class PasswordController < ApplicationController
     edit_users_password_link = edit_users_password_path(email: @user.email, reset_token: @user.reset_token)
 
     EmailService.new(client: client, 
-                      users: @user, 
-                      type: "password_reset_email",
+                      user: @user, 
+                      contents: I18n.t(:password_reset_email),
                       link: edit_users_password_link)
   end
 
