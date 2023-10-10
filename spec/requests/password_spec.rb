@@ -49,7 +49,7 @@ RSpec.describe "Password", type: :request do
         expect(response).to have_http_status(200)
       end
     end
-    
+
     context 'when params are invalid' do
       it "returns http status 422" do
         user.generate_reset_token
