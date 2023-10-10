@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :current_profile, :logged_in?
 
   def current_profile
-    @profile ||= current_user.profile
+    @profile ||= current_user&.profile
   end
 
   def authenticate_user!
