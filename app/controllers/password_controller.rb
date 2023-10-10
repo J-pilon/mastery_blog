@@ -43,11 +43,23 @@ class PasswordController < ApplicationController
 
     EmailService.new(client: client, 
                       user: @user, 
-                      contents: I18n.t(:password_reset_email),
+                      contents: email_contents,
                       link: edit_users_password_link)
   end
 
   def aws_email_client
     Aws::SES::Client.new
+  end
+
+  def email_contents
+    { 
+      subject: 'Reset Password Instructions',
+      html_body: '<h1>Hello <first_name></h1>\n
+                <p>Someone has requested a link to change your password. You can do this through the link below.\n
+                <a href>change my password</a>\n
+                If you didn\'t request this, please ignore this email.\n
+                Your password won\'t change until you access the link above and create a new one.</p>',
+      encoding: 'UTF-8'
+    }
   end
 end
