@@ -8,10 +8,15 @@ module StateMachine
 
     def transition
       case state
-      when :draft
-        :published
-      when :published
+      # event
+      when :creating, :saving
         :draft
+      when :cancelling
+        :destroy
+      when :publishing
+        :public
+      when :failing
+        
       else
         :draft
       end
