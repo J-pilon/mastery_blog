@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
   def logged_in?
     current_user != nil
   end
+
+  def send_email(user: @current_user, content_params:, link: nil, client: nil)
+    EmailService.new(user: user, contents: contents_params, link: link, client: client).send!
+  end
 end
