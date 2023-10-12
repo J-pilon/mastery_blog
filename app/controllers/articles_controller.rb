@@ -16,7 +16,12 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    @state_machine = StateMachine::Article.new(@article.state)
+    # StateMachine::Article.transition(@article)
+    next_state = @state_machine.transition
+    article_params.merge(state: :next_state)
     @article = current_profile.articles.build(article_params)
+
 
     if @article.save
       redirect_to @article
@@ -33,6 +38,7 @@ class ArticlesController < ApplicationController
   def update
     @article = find_article(params[:id])
     return if is_unauthorized?(@article, "show")
+    @state_machine = StateMachine::Article.new(@article)
 
     if @article.update(article_params)
       redirect_to @article
