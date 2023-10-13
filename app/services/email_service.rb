@@ -2,7 +2,7 @@ class EmailService
 
   attr_reader :client, :user, :contents, :link
 
-  def initialize(client:, user:, contents:, link: nil)
+  def initialize(client: Aws::SES::Client.new, user:, contents:, link: nil)
     @client = client
     @user = user
     @contents = contents
@@ -62,7 +62,6 @@ class EmailService
 
   def add_link(contents)
     return contents unless contents['href'] && link
-    # return contents if !contents['href'] && link
     contents.gsub!('href', 'href=#{link}')
   end
 
