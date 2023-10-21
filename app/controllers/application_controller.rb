@@ -21,9 +21,7 @@ class ApplicationController < ActionController::Base
     current_user.persisted?
   end
 
-  def send_email(user:, contents:, link:)
-    EmailService.new(user: @user, 
-                      contents: contents,
-                      link: link)
+  def send_email(user: @user, contents:, link:)
+    EmailService.new(user: user, contents: contents, link: link)
   end
 end
