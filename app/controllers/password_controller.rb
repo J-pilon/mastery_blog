@@ -6,7 +6,7 @@ class PasswordController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:user][:email])
-    if @user&.generate_reset_token && email_service.send!
+    if @user&.generate_reset_token && send_password_reset_email
       redirect_to email_sent_users_password_path
     else
       render :new, status: :unprocessable_entity
@@ -30,6 +30,7 @@ class PasswordController < ApplicationController
   end
 
   def email_sent
+    @user = User.new
   end
 
   private
@@ -38,20 +39,12 @@ class PasswordController < ApplicationController
     params.require(:user).permit(:password)
   end
 
-  def email_service(client=aws_email_client)
+  def send_password_reset_email
     edit_users_password_link = edit_users_password_path(email: @user.email, reset_token: @user.reset_token)
-
-    EmailService.new(client: client, 
-                      user: @user, 
-                      contents: email_contents,
-                      link: edit_users_password_link)
+    send_email(user: @user, contents: password_reset_email_contents, link: edit_users_password_link)
   end
 
-  def aws_email_client
-    Aws::SES::Client.new
-  end
-
-  def email_contents
+  def password_reset_email_contents
     { 
       subject: 'Reset Password Instructions',
       html_body: '<h1>Hello <first_name></h1>\n

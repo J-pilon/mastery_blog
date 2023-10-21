@@ -73,7 +73,9 @@ Rails.application.configure do
 
   config.x.mail_from = %(Your site name <mastery_blog@yahoo.com>)
   config.action_mailer.default_url_options = { host: 'localhost' }
-  config.action_mailer.smtp_settings = { address: 'email-smtp.us-east-2.amazonaws.com', user_name: ENV["SMTP_USER_NAME"], password: ENV["SMTP_PASSWORD"] }
+  config.action_mailer.smtp_settings = { address: 'email-smtp.us-east-2.amazonaws.com', 
+                                          user_name: ENV["SMTP_USER_NAME"], 
+                                          password: ENV["SMTP_PASSWORD"] }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :aws_sdk
 end

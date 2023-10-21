@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
   def logged_in?
     current_user.persisted?
   end
+
+  def send_email(user: @user, contents:, link:)
+    EmailService.new(user: user, contents: contents, link: link)
+  end
 end
