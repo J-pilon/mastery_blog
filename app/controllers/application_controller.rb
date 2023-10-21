@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    current_user.persisted?
+    current_user&.persisted?
   end
 
   def send_email(user: @user, contents:, link:)
