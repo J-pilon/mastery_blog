@@ -11,6 +11,18 @@ module.exports = {
     // 'bg-red-800',
   ],
   theme: {
+    container: {
+      center: true,
+    },
+    fontSize: {
+      'sm': '.75rem',
+      'lg': '1rem',
+      'xl': '1.125rem',
+      '2xl': '1.5rem',
+      '3xl': '2rem',
+      '4xl': '2.75rem',
+      '5xl': '3rem'
+    },
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
@@ -18,11 +30,12 @@ module.exports = {
       },
       colors: {
         'light': '#FFFAF4',
-        'black': '#1A1B1F',
-        'primary': '#41729F',
-        'secondary': '#C3E0E5',
-        'tertiary': '#274472',
-        'background': '#5885AF',
+        'gray': '#a0a0a0',
+        'primary': '#00408A',
+        'secondary': '#A7CBE8',
+        'tertiary': '#482F3B',
+        'background': '#000000',
+        // 'background': '#274472',
       },
     },
   },
