@@ -1,0 +1,32 @@
+<article class="flex flex-col h-[500px] max-w-sm mb-6 pb-4 rounded-lg justify-between overflow-hidden">
+  <%= link_to article_path(article), class: "flex flex-col items-center w-full" do %>
+    <div class="w-full overflow-hidden">
+      <img src="http://via.placeholder.com/640x400" alt="" class="object-cover">
+    </div>
+
+    <div class="pt-4 space-y-2 max-h-1/2">
+      <div class="flex flex-row justify-start">
+        <h5 class="mr-4 text-black">Tech</h5>
+
+        <p class="text-gray"><%= format_date(article.created_at) %></p>
+      </div>
+
+      <h4 class="font-bold">
+        <%= article.title %>
+      </h4>
+
+      <p class="text-justify overflow-ellipsis">
+        <%= article.body.truncate_words(30) %>
+      </p>
+
+    </div>
+  <% end %>
+
+  <div class="flex flex-row items-center justify-start">
+    <div class="w-10 mr-4 overflow-hidden rounded-full">
+      <img src=<%= profile_image_url(article.profile) %> alt="" class="object-contain">
+    </div>
+
+    <h5 class="text-black"><%= "#{article.profile.first_name} #{article.profile.last_name}" %></h5>
+  </div>
+</article>

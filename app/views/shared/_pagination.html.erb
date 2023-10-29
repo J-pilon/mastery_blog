@@ -1,43 +1,39 @@
-<div class="max-w-4xl mx-auto mb-8 flex justify-center">
-	<nav>
-		<ul class="flex">
-      <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-        <%= link_to 'First', articles_path(page: 1), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
-      </li>
-      
-      <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-        <%= link_to '< Previous', articles_path(page: pagination.prev_page), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
-      </li>
+<div class="flex items-center justify-center max-w-4xl mx-auto">
+  <div class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    <%= link_to 'First', articles_path(page: 1), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
+  </div>
+  
+  <div class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    <%= link_to '< Previous', articles_path(page: pagination.prev_page), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
+  </div>
 
-      <li class="flex flex-row">
-        <% if pagination.total_pages >= 6 %>
-          <% pagination.pages_range.each do |i| %>
-            <%= link_to(i, articles_path(page: i), class: "bg-white border border-gray-300 text-gray-50 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400") %>
-          <% end %>
-        <% end %>
-      </li>
+  <div class="flex flex-row">
+    <% if pagination.total_pages >= 6 %>
+      <% pagination.pages_range.each do |i| %>
+        <%= link_to(i, articles_path(page: i), class: "bg-white text-gray-50 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400") %>
+      <% end %>
+    <% end %>
+  </div>
 
-      <li class="flex flex-row py-2 px-4 bg-white border border-gray-300 text-gray-50 leading-tight dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
-        <%= "Page #{pagination.page} of #{pagination.total_pages}" %>
+  <div class="flex flex-row items-center px-4 py-2 leading-tight bg-white text-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+    <%= "Page #{pagination.page} of #{pagination.total_pages}" %>
 
-        <form method="GET" action="/articles" class="ml-2">
-          <select id="per-page-selector" name="per_page" onchange="this.form.submit()">
-            <option <%= ("selected" if pagination.per_page == 10) %> value="10">10</option>
-            <option <%= ("selected" if pagination.per_page == 25) %> value="25">25</option>
-            <option <%= ("selected" if pagination.per_page == 50) %> value="50">50</option>
-            <option <%= ("selected" if pagination.per_page == 100) %> value="100">100</option>
-            <option <%= ("selected" if pagination.per_page == 0) %> value="all">all</option>
-          </select>
-        </form>
-      </li>
+    <form method="GET" action="/articles" class="ml-2">
+      <select id="per-page-selector" name="per_page" onchange="this.form.submit()" class="rounded-lg">
+        <option <%= ("selected" if pagination.per_page == 10) %> value="10">10</option>
+        <option <%= ("selected" if pagination.per_page == 25) %> value="25">25</option>
+        <option <%= ("selected" if pagination.per_page == 50) %> value="50">50</option>
+        <option <%= ("selected" if pagination.per_page == 100) %> value="100">100</option>
+        <option <%= ("selected" if pagination.per_page == 0) %> value="all">all</option>
+      </select>
+    </form>
+  </div>
 
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <%= link_to 'Next >', articles_path(page: pagination.next_page), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
-        </li>
+  <div class="px-3 py-2 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    <%= link_to 'Next >', articles_path(page: pagination.next_page), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
+  </div>
 
-        <li class="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <%= link_to 'Last', articles_path(page: pagination.total_pages), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
-        </li>
-    </ul>
-  </nav>
+  <div class="px-3 py-2 leading-tight text-gray-500 bg-white rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    <%= link_to 'Last', articles_path(page: pagination.total_pages), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
+  </div>
 </div>

@@ -8,8 +8,8 @@
   --tertiary: theme('colors.tertiary');
   --light: theme('colors.light');
   --black: theme('colors.black');
-  /* --outline: theme('colors.outline'); */
-  --background: theme('colors.background'); 
+  --gray: theme('colors.gray');
+  --background: theme('colors.background')
 }
 
 
@@ -36,22 +36,31 @@
     src: url('Arimo/Arimo-Bold.ttf') format('TrueType');
   }
 
-  body {
-    @apply bg-background;
+  html {
+    @apply text-[16px] h-full;
   }
-  
+
+  body {
+    @apply w-full h-full m-0;
+    font-weight: 400;
+  }
+
+  main {
+    @apply mx-32 overflow-scroll bg-white;
+  }
+
   /* Text elements */
 
   h1 {
-    @apply text-5xl font-bold leading-7 font-arimo;
+    @apply text-5xl font-bold leading-10 font-arimo;
   }
 
   h2 {
-    @apply text-[2.4rem] font-semibold leading-7 font-arimo;
+    @apply text-4xl font-semibold leading-9 font-arimo;
   }
 
   h3 {
-    @apply text-[1.9rem] font-medium leading-7 font-arimo;
+    @apply text-3xl font-medium leading-8 font-arimo;
   }
 
   h4 {
@@ -59,11 +68,11 @@
   }
 
   h5 {
-    @apply text-xl font-normal leading-7 font-arimo;
+    @apply text-xl font-normal leading-6 font-arimo;
   }
 
   p {
-    @apply text-[1rem] font-normal font-arimo leading-7;
+    @apply text-lg font-normal leading-5 font-arimo text-gray;
   } 
 
   /* Inputs */
@@ -82,6 +91,10 @@
 
   input[type="checkbox"] {
     @apply border-2 rounded-sm border-primary checked:bg-primary focus:checked:ring-light focus:checked:bg-primary hover:checked:bg-primary focus:ring-light;
+  }
+
+  textarea {
+    border-color: transparent;
   }
 }
 
@@ -112,30 +125,27 @@
     background-color: darkgray;
   }
 
-  textarea {
-    border-color: transparent;
-  }
-
   /* Buttons */
 
   .btn-primary {
-    @apply btn btn-lg bg-primary;
+    @apply text-white btn bg-primary;
   }
 
-  .btn--secondary {
-    @apply btn btn-outline-colors bg-secondary;
+  .btn-secondary {
+    @apply text-white btn bg-secondary;
   }
 
-  .btn--link {
-    @apply underline btn text-primary;
+  .btn-link {
+    @apply underline btn text-tertiary;
   }
 
   /* Text elements */
 
   /* .body-semibold {
-    @apply text-lg font-semibold font-messina-sans;
-  }
+    @apply ;
+  } */
 
+  /*
   .callout {
     @apply text-[18px] font-semibold font-messina-sans;
   }
@@ -151,7 +161,7 @@
 
 @layer utilities {
   .btn {
-    @apply flex items-center justify-center w-auto border border-transparent border-solid rounded-xl whitespace-nowrap;
+    @apply flex items-center justify-center w-auto font-bold border border-transparent border-solid rounded-xl whitespace-nowrap;
   }
 
   .btn:focus {
@@ -174,17 +184,6 @@
 
   /* Button type variations */
 
-  .btn-primary-colors {
-    background-color: var(--primary);
-    color: white;
-  }
-
-  .btn-outline-colors {
-    border-color: var(--primary);
-    background-color: var(--background);
-    color: var(--primary);
-  }
-
   .btn-disabled {
     background-color: lightgrey;
     color: var(--primary);
@@ -193,7 +192,7 @@
 
   .btn-outline-disabled {
     border-color: var(--outline);
-    color: grey;
+    color: gray;
   }
 
   /* Misc */
