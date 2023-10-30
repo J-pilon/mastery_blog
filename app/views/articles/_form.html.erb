@@ -1,7 +1,6 @@
-<%= form_with(model: @article, data: {controller: "tinymce"}) do |form| %>
-    <div class="flex">
-        <%= form.label :title, "Title: ", class: "text-lx font-serif" %>
-        <%= form.text_field :title, class: "w-full ml-2 outline-none py-1 px-2 text-md border-2 rounded-md", placeholder: "title" %>
+<%= form_with(model: @article, data: {controller: "tinymce"}, class: "relative") do |form| %>
+    <div class="absolute z-50 flex w-full top-[7rem]">
+        <%= form.text_field :title, class: "!text-5xl w-full outline-none py-1 !px-0 text-md border-2 rounded-md", placeholder: "TITLE" %>
         
         <% @article.errors.full_messages_for(:title).each do |message| %>
             <p style="color: red"><%= message %></p>
@@ -9,8 +8,7 @@
     </div>
 
     <div>
-        <%= form.label :body, "Body: ", class: "block mb-2 text-lg font-serif" %>
-        <%= form.text_area :body, class: "tinymce w-full font-serif p-4 outline-none text-gray-600 bg-indigo-50 rounded-md", size: "30x10" %>
+        <%= form.text_area :body, class: "tinymce w-full font-serif p-4 outline-none text-gray-600 bg-indigo-50 rounded-md", size: "30x10", placeholder: "Write here." %>
 
         <% @article.errors.full_messages_for(:body).each do |message| %>
             <p style="color: red"><%= message %></p>
@@ -19,7 +17,7 @@
 
     <% form.hidden_field(:image_url, value: @download_url) %>
 
-    <div class= "flex justify-center px-6 py-2 mx-auto text-lg font-semibold text-indigo-100 bg-indigo-600 rounded-md hover:cursor-pointer">
+    <div class="mt-4 btn-primary btn-lg">
         <%= form.submit %>
     </div> 
 <% end %>

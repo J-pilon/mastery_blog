@@ -13,17 +13,19 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "tinymce", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <% if logged_in?  %>
-      <header class="flex items-center justify-between p-4 text-black border-b-[1px] border-solid border-gray">
+      <header class="flex items-center justify-between p-4 text-black border-b-[1px] border-solid border-gray shadow-md">
         <%= button_to "signout", signout_path, method: :post %>
 
-        <h3>Mastery.</h3>
-
+        <%= link_to root_path do %>
+          <h3>Mastery.</h3>
+        <% end %>
+        
         <%= link_to profile_path(id: current_profile), class: "h-full" do %>
           <div class="w-12 h-12 overflow-hidden border-2 border-black border-solid rounded-full">
             <img src=<%= profile_image_url(current_profile) %> alt="" class="h-full object-fit">
