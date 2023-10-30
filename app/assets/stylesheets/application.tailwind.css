@@ -5,11 +5,10 @@
 :root {
   --primary: theme('colors.primary');
   --secondary: theme('colors.secondary');
-  --tertiary: theme('colors.tertiary');
+  --accent: theme('colors.accent');
   --light: theme('colors.light');
   --black: theme('colors.black');
   --gray: theme('colors.gray');
-  --background: theme('colors.background')
 }
 
 
@@ -46,7 +45,7 @@
   }
 
   main {
-    @apply mx-32 overflow-scroll bg-white;
+    @apply mx-32 mt-8 overflow-scroll bg-white;
   }
 
   /* Text elements */
@@ -78,7 +77,7 @@
   /* Inputs */
 
   input[type="password"], input[type="email"], input[name="first_name"], input[name="last_name"], input[type="tel"], input[type="text"], textarea {
-    @apply w-full px-2 py-3 text-lg font-normal border-transparent bg-light rounded-xl focus:border-tertiary focus:shadow-tertiary focus:ring-tertiary focus:outline-none font-arimo;
+    @apply w-full px-2 py-3 text-lg font-normal bg-transparent border-transparent rounded-xl focus:ring-transparent focus:border-none focus:shadow-transparent focus:outline-none font-arimo;
   } 
 
   input[type="password"]::placeholder, input[type="email"]::placeholder, input[name="name"]::placeholder, input[type="tel"]::placeholder, textarea::placeholder {
@@ -136,7 +135,7 @@
   }
 
   .btn-link {
-    @apply underline btn text-tertiary;
+    @apply underline btn text-accent;
   }
 
   /* Text elements */
