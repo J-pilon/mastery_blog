@@ -45,7 +45,7 @@
   }
 
   main {
-    @apply mx-32 mt-8 overflow-scroll bg-white;
+    @apply mx-auto mt-8 overflow-scroll bg-white max-w-7xl;
   }
 
   /* Text elements */
@@ -127,11 +127,15 @@
   /* Buttons */
 
   .btn-primary {
-    @apply text-white btn bg-primary;
+    @apply text-white border-transparent btn bg-primary;
   }
 
   .btn-secondary {
-    @apply text-white btn bg-secondary;
+    @apply text-white border-transparent btn bg-secondary;
+  }
+
+  .btn-outline {
+    @apply bg-white border-secondary text-secondary btn;
   }
 
   .btn-link {
@@ -160,7 +164,7 @@
 
 @layer utilities {
   .btn {
-    @apply flex items-center justify-center w-auto font-bold border border-transparent border-solid rounded-xl whitespace-nowrap;
+    @apply flex items-center justify-center w-auto font-bold border-2 border-solid rounded-xl whitespace-nowrap;
   }
 
   .btn:focus {

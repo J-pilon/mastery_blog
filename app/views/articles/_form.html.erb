@@ -1,4 +1,4 @@
-<%= form_with(model: @article, data: {controller: "tinymce"}, class: "relative") do |form| %>
+<%= form_with(model: @article, data: {controller: "tinymce"}, class: "relative w-full") do |form| %>
     <div class="absolute z-50 flex w-full top-[7rem]">
         <%= form.text_field :title, class: "!text-5xl w-full outline-none py-1 !px-0 text-md border-2 rounded-md", placeholder: "TITLE" %>
         
@@ -17,7 +17,11 @@
 
     <% form.hidden_field(:image_url, value: @download_url) %>
 
-    <div class="mt-4 btn-primary btn-lg">
-        <%= form.submit %>
+    <div class="flex items-center justify-between mt-4">
+        <%= link_to "Cancel", articles_path, class: "btn-lg btn-outline" %>
+
+        <div class="btn-primary btn-lg">
+            <%= form.submit "Create" %>
+        </div>
     </div> 
 <% end %>
