@@ -1,7 +1,15 @@
-<div class="flex flex-wrap justify-center gap-6 py-8">
-    <% @articles.each do |article| %>
-        <%= render partial: "article", locals: {article: article} %>
-    <% end %>
-</div>
+<div class="mx-auto">
+    <div class="flex flex-col items-center justify-center mb-32">
+        <h1>Share your next masterpiece.</h1>
 
-<%= render partial: "shared/pagination", locals: {pagination: @pagination} %>
+        <%= link_to "New Article", new_article_path, class: "mt-4 btn-lg btn-primary" %>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-6">
+        <% @articles.each do |article| %>
+            <%= render partial: "article", locals: {article: article} %>
+        <% end %>
+    </div>
+
+    <%= render partial: "shared/pagination", locals: {pagination: @pagination} %>
+</div>
