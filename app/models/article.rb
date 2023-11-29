@@ -1,6 +1,8 @@
 class Article < ApplicationRecord
     require 'sanitize'
 
+    enum state: {drafted: 0, published: 1}
+
     belongs_to :profile
 
     validates :title, presence: true
