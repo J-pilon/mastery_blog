@@ -33,7 +33,6 @@ class ArticlesController < ApplicationController
   def update
     @article = find_article(params[:id])
     return if is_unauthorized?(@article, "show")
-
     if @article.update(article_params)
       redirect_to @article
     else
@@ -47,6 +46,11 @@ class ArticlesController < ApplicationController
     @article.destroy
 
     redirect_to articles_path, status: :see_other
+  end
+
+  def publish
+    article = Article.find(param[:id])
+    StateMachine::Article.new(article).publishing!
   end
 
   private
