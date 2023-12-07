@@ -49,8 +49,9 @@ class ArticlesController < ApplicationController
   end
 
   def publish
-    article = Article.find(param[:id])
+    article = find_article(params[:id])
     StateMachine::Article.new(article).publishing!
+    redirect_to article_path(article) if article.save
   end
 
   private
