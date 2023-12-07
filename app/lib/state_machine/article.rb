@@ -5,7 +5,7 @@ module StateMachine
 
     def initialize(article)
       @article = article
-      @state = article.state
+      @state = article.state.to_sym
     end
 
     def drafting!
@@ -15,7 +15,7 @@ module StateMachine
     end
 
     def publishing!
-      raise "Invalid state #{state}" if state != :draft
+      raise "Invalid state #{state}" if state != :drafted
 
       article.state = :published
     end
