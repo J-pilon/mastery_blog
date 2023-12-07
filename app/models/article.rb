@@ -11,6 +11,8 @@ class Article < ApplicationRecord
     before_validation :sanitize_body
     after_validation :set_slug
 
+    scope :published, -> { where(state: :published) }
+
     def to_param
         if persisted?
             slug
