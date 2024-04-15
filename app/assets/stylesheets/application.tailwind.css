@@ -139,7 +139,7 @@
   }
 
   .btn-link {
-    @apply underline btn text-accent;
+    @apply underline border-transparent btn text-accent;
   }
 
   /* Text elements */
@@ -172,6 +172,10 @@
   }
 
   /* Button sizes */
+
+  .btn-full {
+    @apply px-8 py-4 w-full;
+  }
 
   .btn-lg {
     @apply px-8 py-4 w-80;

@@ -1,9 +1,9 @@
 <div class="flex items-center justify-center max-w-4xl mx-auto">
-  <div class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+  <div class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
     <%= link_to 'First', articles_path(page: 1), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
   </div>
   
-  <div class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+  <div class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
     <%= link_to '< Previous', articles_path(page: pagination.prev_page), class: "#{'pointer-events-none' unless pagination.prev_page?}" %>
   </div>
 
@@ -29,11 +29,11 @@
     </form>
   </div>
 
-  <div class="px-3 py-2 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+  <div class="px-3 py-2 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
     <%= link_to 'Next >', articles_path(page: pagination.next_page), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
   </div>
 
-  <div class="px-3 py-2 leading-tight text-gray-500 bg-white rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+  <div class="px-3 py-2 leading-tight text-gray-500 bg-white rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
     <%= link_to 'Last', articles_path(page: pagination.total_pages), class: "#{'pointer-events-none' unless pagination.next_page?}" %>
   </div>
 </div>
