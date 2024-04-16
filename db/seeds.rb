@@ -7,3 +7,16 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # FactoryBot.create_list(:article, 50)
+
+
+# create users with profiles using FactoryBot
+10.times do
+  user = FactoryBot.create(:user)
+  user.save
+end
+
+# create an article for each user
+Profile.all.each do |profile|
+  FactoryBot.create(:article, profile: profile)
+end
+
