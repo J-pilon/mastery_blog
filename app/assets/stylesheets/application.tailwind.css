@@ -138,6 +138,10 @@
     @apply underline border-transparent btn text-accent;
   }
 
+  .navbar-link {
+    @apply mx-2 text-lg font-normal text-center text-black font-arimo;
+  }
+
   /* Text elements */
 
   /* .body-semibold {
