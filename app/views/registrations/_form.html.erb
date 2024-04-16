@@ -1,52 +1,49 @@
-<%= form_with(model: @user, url: signup_path) do |f| %>
-  <div>
-    <% @user.errors.full_messages.each do |message| %>
-      <p style="color: red"><%= message %></p>
-    <% end %>
-
-    <% @profile.errors.full_messages.each do |message| %>
-      <p style="color: red"><%= message %></p>
-    <% end %>
-  </div>
-
-  <div class="flex-col mb-4 space-y-2">
-    <%= fields_for :profile do |f| %>
-      <div class="flex justify-between">
-        <div>
-          <%= f.label :first_name %>
-          <%= f.text_field :first_name, class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
-        </div>
-
-        <div>
-          <%= f.label :last_name %>
-          <%= f.text_field :last_name, class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
-        </div>
-      </div>
-    <% end %>
-
+<%= form_with(model: @user, url: signup_path, class: "space-y-8") do |f| %>
+  <div class="rounded-md shadow-sm">
     <div>
-      <%= f.label :email %>
-      <%= f.text_field :email, class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
+      <% @user.errors.full_messages.any? do |error| %>
+        <p class="text-red-500"><%= error %></p>
+      <% end %>
     </div>
+    
+    <div class="flex-col mb-4 space-y-2">
+      <%= fields_for :profile do |f| %>
+        <div class="flex justify-between">
+          <div class="mr-2">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, placeholder: "First name" %>
+          </div>
+          
+          <div class="ml-2">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, placeholder: "Last name" %>
+          </div>
+        </div>
+      <% end %>
+      <div>
+        <%= f.label :email %>
+        <%= f.text_field :email, placeholder: "Email" %>
+      </div>
 
-    <div>
-      <%= f.label :password %>
-      <%= f.password_field :password, placeholder: "Password", class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
+      <div>
+        <%= f.label :password %>
+        <%= f.password_field :password, placeholder: "Password" %>
+      </div>
+    
+      <div>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, placeholder: "Confirm Password" %>
+      </div>
+
+      <div>
+        <% @user.errors.full_messages_for(:password).each do |message| %>
+          <p style="color: red"><%= message %></p>
+        <% end %>
+      </div>
     </div>
     
     <div>
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, placeholder: "Confirm Password", class: "w-full outline-none py-1 px-2 text-md border-2 rounded-md" %>
-    </div>
-
-    <div>
-      <% @user.errors.full_messages_for(:password).each do |message| %>
-        <p style="color: red"><%= message %></p>
-      <% end %>
+      <%= f.submit "Sign up", class: "btn-primary btn-full mt-8" %>
     </div>
   </div>
-
-  <div class= "flex justify-center px-6 py-2 mx-auto text-lg font-semibold text-indigo-100 bg-indigo-600 rounded-md hover:cursor-pointer">
-    <%= f.submit %>
-  </div> 
 <% end %>
