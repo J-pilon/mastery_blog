@@ -1,11 +1,11 @@
 class ArticlesController < ApplicationController
   include Pagination
 
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
 
   def index
-    @pagination, @articles = paginate(collection: Article.all.order(created_at: :desc), params: remedy_page_param(page_params))
-    
+    @pagination, @articles = paginate(collection: Article.all.order(created_at: :desc),
+                                      params: remedy_page_param(page_params))
   end
 
   def show
@@ -28,12 +28,13 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = find_article(params[:id])
-    is_unauthorized?(@article, "show")
+    is_unauthorized?(@article, 'show')
   end
 
   def update
     @article = find_article(params[:id])
-    return if is_unauthorized?(@article, "show")
+    return if is_unauthorized?(@article, 'show')
+
     if @article.update(article_params)
       redirect_to @article
     else
@@ -43,7 +44,8 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = find_article(params[:id])
-    return if is_unauthorized?(@article, "show")
+    return if is_unauthorized?(@article, 'show')
+
     @article.destroy
 
     redirect_to articles_path, status: :see_other
@@ -65,23 +67,21 @@ class ArticlesController < ApplicationController
     params.permit(:page, :per_page)
   end
 
-  def find_article id
+  def find_article(id)
     id.to_i == 0 ? Article.find_by(slug: id) : Article.find(id)
   end
 
-  def remedy_page_param params
-    if (params[:page].to_i) == 0
-        params[:page] = 1
-    end
+  def remedy_page_param(params)
+    params[:page] = 1 if params[:page].to_i == 0
 
     params
   end
 
   def is_unauthorized?(article, destination)
     destination = destination.to_sym
-    if article.profile.id != current_profile.id
-      render destination, status: :unauthorized
-      return true
-    end
+    return unless article.profile.id != current_profile.id
+
+    render destination, status: :unauthorized
+    true
   end
 end

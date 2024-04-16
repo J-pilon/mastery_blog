@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
       commited_user = FactoryBot.create(:user)
       registering_user = FactoryBot.build(:user, email: commited_user.email)
       expect(registering_user).to_not be_valid
-      expect(registering_user.errors.full_messages).to eq(["Email has already been taken"])
+      expect(registering_user.errors.full_messages).to eq(['Email has already been taken'])
     end
   end
 
@@ -39,13 +39,13 @@ RSpec.describe User, type: :model do
       user.generate_reset_token
       expect(user.reset_token).to match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
     end
-  
+
     # it 'expires after time limit' do
     #   user.generate_reset_token
     #   expect(user.reset_token_expiry).to be_within(1.second).of(invalid_token_time_limit.utc)
     # end
   end
-    
+
   context 'when reset token is valid' do
     let(:user) { FactoryBot.create(:user) }
 
@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
       user.reset_token_expiry = valid_token_time_limit
       expect(user.is_reset_token_valid?).to be(true)
     end
-  
+
     it 'if tokens match' do
       user.generate_reset_token
       expect(user.is_reset_token_valid?).to be(true)

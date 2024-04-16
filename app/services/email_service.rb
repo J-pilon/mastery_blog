@@ -1,8 +1,7 @@
 class EmailService
-
   attr_reader :client, :user, :contents, :link
 
-  def initialize(client: Aws::SES::Client.new, user:, contents:, link: nil)
+  def initialize(user:, contents:, client: Aws::SES::Client.new, link: nil)
     @client = client
     @user = user
     @contents = contents
@@ -10,12 +9,9 @@ class EmailService
   end
 
   def send!
-    begin
-      resp = client.send_email(template)
-      resp
-    rescue Aws::SES::Errors::ServiceError => error
-      puts "Email not sent. Error message: #{error}"
-    end
+    client.send_email(template)
+  rescue Aws::SES::Errors::ServiceError => e
+    puts "Email not sent. Error message: #{e}"
   end
 
   private
@@ -23,19 +19,19 @@ class EmailService
   def template
     {
       destination: {
-        to_addresses: [user.email],
+        to_addresses: [user.email]
       },
       message: {
         body: {
           html: {
             charset: encoding,
-            data: html_body,
+            data: html_body
           }
         },
         subject: {
           charset: encoding,
-          data: subject,
-        },
+          data: subject
+        }
       },
       source: sender
     }
@@ -50,18 +46,20 @@ class EmailService
     personalized = personalize(body)
     add_link(personalized)
   end
-  
+
   def encoding
     contents[:encoding]
   end
 
   def personalize(contents)
-    return contents unless contents['<first_name>'] 
+    return contents unless contents['<first_name>']
+
     contents.gsub!('<first_name>', user.profile.first_name)
   end
 
   def add_link(contents)
     return contents unless contents['href'] && link
+
     contents.gsub!('href', 'href=#{link}')
   end
 

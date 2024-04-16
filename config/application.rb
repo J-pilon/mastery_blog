@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -22,9 +22,9 @@ module MasteryBlog
     config.generators do |g|
       g.helper false
       g.test_framework :rspec,
-      routing_spec: false,
-      view_spec: false,
-      helper_spec: false
+                       routing_spec: false,
+                       view_spec: false,
+                       helper_spec: false
     end
   end
 end

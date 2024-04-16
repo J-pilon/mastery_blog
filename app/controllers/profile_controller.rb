@@ -1,6 +1,6 @@
 class ProfileController < ApplicationController
   before_action :profile
-  
+
   def show; end
 
   def edit; end
@@ -16,7 +16,7 @@ class ProfileController < ApplicationController
   private
 
   def profile
-    @profile = Profile.find(params[:id])    
+    @profile = Profile.find(params[:id])
   end
 
   def profile_params

@@ -1,6 +1,6 @@
 class StorageService
   require 'securerandom'
-  
+
   attr_reader :bucket, :object, :object_key
 
   def initialize(bucket:, object_key: default_object_key)
@@ -18,11 +18,11 @@ class StorageService
   end
 
   private
-  
+
   def create_object
     bucket.object(object_key)
   end
-  
+
   def default_object_key
     SecureRandom.hex(10)
   end

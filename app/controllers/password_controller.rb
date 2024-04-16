@@ -1,5 +1,4 @@
 class PasswordController < ApplicationController
-
   def new
     @user = User.new
   end
@@ -15,17 +14,16 @@ class PasswordController < ApplicationController
 
   def edit
     @user = User.find_by(email: params[:email], reset_token: params[:reset_token])
-    if !@user&.is_reset_token_valid?
-      render :new, status: :unprocessable_entity, message: "Invalid Token: please try again"
-    end
+    return if @user&.is_reset_token_valid?
+
+    render :new, status: :unprocessable_entity, message: 'Invalid Token: please try again'
   end
 
   def update
     @user = User.find_by(email: params[:email])
     if @user&.update(password: params[:user][:password])
       redirect_to signin_path
-    elsif 
-      render :edit, status: :unprocessable_entity
+    elsif render :edit, status: :unprocessable_entity
     end
   end
 
@@ -45,7 +43,7 @@ class PasswordController < ApplicationController
   end
 
   def password_reset_email_contents
-    { 
+    {
       subject: 'Reset Password Instructions',
       html_body: '<h1>Hello <first_name></h1>\n
                 <p>Someone has requested a link to change your password. You can do this through the link below.\n
