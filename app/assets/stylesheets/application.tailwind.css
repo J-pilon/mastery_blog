@@ -77,11 +77,11 @@
   /* Inputs */
 
   input[type="password"], input[type="email"], input[name="first_name"], input[name="last_name"], input[type="tel"], input[type="text"], textarea {
-    @apply w-full px-2 py-3 text-lg font-normal bg-transparent border border-transparent border-solid text-gray focus:ring-transparent focus:border-none focus:shadow-transparent focus:outline-none font-arimo rounded-xl border-gray focus:z-10 sm:text-sm;
+    @apply w-full px-2 py-3 text-lg font-normal text-black bg-transparent border-2 border-solid focus:ring-transparent focus:border-primary focus:shadow-transparent focus:outline-none font-arimo rounded-xl border-gray;
   } 
 
-  input[type="password"]::placeholder, input[type="email"]::placeholder, input[name="name"]::placeholder, input[type="tel"]::placeholder, textarea::placeholder {
-    @apply text-[14px] font-semibold font-arimo text-gray;
+  input[type="password"]::placeholder, input[type="email"]::placeholder, input[name="name"]::placeholder, input[type="tel"]::placeholder, input[type="text"]::placeholder, textarea::placeholder {
+    @apply text-lg font-normal font-arimo text-gray;
   }
 
   input[type="checkbox"] {

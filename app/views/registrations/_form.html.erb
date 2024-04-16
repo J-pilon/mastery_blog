@@ -11,7 +11,7 @@
         <div class="flex justify-between">
           <div class="mr-2">
             <%= f.label :first_name %>
-            <%= f.text_field :first_name, placeholder: "First name" %>
+            <%= f.text_field :first_name, autofocus: true, placeholder: "First name" %>
           </div>
           
           <div class="ml-2">
@@ -31,8 +31,8 @@
       </div>
     
       <div>
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, placeholder: "Confirm Password" %>
+        <%= f.label :confirm_password %>
+        <%= f.password_field :password_confirmation, placeholder: "Password" %>
       </div>
 
       <div>
