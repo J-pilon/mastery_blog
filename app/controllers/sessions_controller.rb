@@ -22,17 +22,17 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:user).permit(:email, :password)
+    params.permit(:email, :password)
   end
 
   def validate_password
     unless @user.authenticate(session_params[:password])
       @user = User.new
-      @user.errors.add(:password,  'is incorrect')
+      @user.errors.add(:password, 'is incorrect')
       return false
     end
 
-    return true
+    true
   end
 
   def validate_email
@@ -42,6 +42,6 @@ class SessionsController < ApplicationController
       return false
     end
 
-    return true
+    true
   end
 end

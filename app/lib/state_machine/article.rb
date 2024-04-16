@@ -1,6 +1,5 @@
 module StateMachine
   class Article
-
     attr_reader :article, :state
 
     def initialize(article)

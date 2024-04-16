@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
     @user ||=
       begin
         return nil unless session[:user_id]
+
         User.find(session[:user_id])
       end
   end
@@ -21,7 +22,7 @@ class ApplicationController < ActionController::Base
     current_user&.persisted?
   end
 
-  def send_email(user: @user, contents:, link:)
+  def send_email(contents:, link:, user: @user)
     EmailService.new(user: user, contents: contents, link: link)
   end
 end

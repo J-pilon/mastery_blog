@@ -1,5 +1,4 @@
 class RegistrationsController < ApplicationController
-
   before_action :profile, only: :create
 
   def new

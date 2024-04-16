@@ -8,7 +8,6 @@
 
 # FactoryBot.create_list(:article, 50)
 
-
 # create users with profiles using FactoryBot
 10.times do
   user = FactoryBot.create(:user)
@@ -19,4 +18,3 @@ end
 Profile.all.each do |profile|
   FactoryBot.create(:article, profile: profile)
 end
-
