@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'EmailService' do
   let(:user) { FactoryBot.create(:user) }
-  let(:client) { Aws::SES::Client.new(region: 'awsregion', stub_responses: true) }
+  let(:client) { Aws::SES::Client.new(region: 'us-east-2', stub_responses: true) }
   let(:email_contents) do
     {
       subject: 'subject',

@@ -45,3 +45,5 @@
 /notes/*
 
 .env
+
+/config/credentials/test.key
