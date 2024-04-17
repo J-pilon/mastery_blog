@@ -65,6 +65,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'literate_randomizer'
   gem 'rspec-rails'
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
