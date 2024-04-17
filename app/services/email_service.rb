@@ -1,10 +1,7 @@
 class EmailService
   attr_reader :client, :user, :contents, :link
 
-  def initialize(user:, contents:, 
-                 client: Aws::SES::Client.new(region: Rails.application.credentials.dig(:aws, :region), 
-                                              credentials: Aws::Credentials.new(Rails.application.credentials.dig(:aws, :secret_access_key),
-                                                                                Rails.application.credentials.dig(:aws, :access_key_id))), link: nil)
+  def initialize(user:, contents:, client: Aws::SES::Client.new, link: nil)
     @client = client
     @user = user
     @contents = contents

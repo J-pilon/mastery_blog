@@ -78,4 +78,10 @@ Rails.application.configure do
                                          password: Rails.application.credentials.dig(:smtp, :password) }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :aws_sdk
+
+  Aws.config.update({
+    region: Rails.application.credentials.dig(:aws, :region),
+    credentials: Aws::Credentials.new(Rails.application.credentials.dig(:aws, :access_key_id), 
+                                      Rails.application.credentials.dig(:aws, :secret_access_key))
+  })
 end
