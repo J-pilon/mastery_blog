@@ -57,4 +57,10 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  Aws.config.update({
+    region: Rails.application.credentials.dig(:aws, :region),
+    credentials: Aws::Credentials.new(Rails.application.credentials.dig(:aws, :access_key_id), 
+                                      Rails.application.credentials.dig(:aws, :secret_access_key))
+  })
 end

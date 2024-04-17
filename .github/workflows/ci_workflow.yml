@@ -26,13 +26,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0.3 # Not needed with a .ruby-version file
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically 
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
-          cache: 'npm'
+          node-version: "16"
+          cache: "npm"
 
       - name: Compile assets
         env:
@@ -50,12 +50,13 @@ jobs:
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
-        with: 
+        with:
           coverageCommand: bin/rspec
           coverageLocations: coverage/coverage.xml:cobertura
           debug: true
@@ -66,4 +67,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage/
           verbose: true
-
