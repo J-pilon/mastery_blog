@@ -4,7 +4,7 @@ RSpec.describe 'Articles', type: :request do
   let(:user) { FactoryBot.create(:user) }
 
   before(:each) do
-    post sessions_path, params: { email: user.email, password: user.password }
+    post sessions_path, params: { user: { email: user.email, password: user.password } }
   end
 
   describe 'GET /articles' do
@@ -98,7 +98,7 @@ RSpec.describe 'Articles', type: :request do
 
       it 'responds with status 401' do
         post signout_path
-        post sessions_path, params: { email: second_user.email, password: second_user.password }
+        post sessions_path, params: { user: { email: second_user.email, password: second_user.password } }
 
         put_article
         expect(response).to have_http_status(401)
@@ -124,7 +124,7 @@ RSpec.describe 'Articles', type: :request do
       let!(:second_user) { FactoryBot.create(:user) }
       let(:signin_as_second_user) do
         post signout_path
-        post sessions_path, params: { email: second_user.email, password: second_user.password }
+        post sessions_path, params: { user: { email: second_user.email, password: second_user.password } }
       end
 
       it 'responds with 401 status' do
