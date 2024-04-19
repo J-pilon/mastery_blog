@@ -12,7 +12,7 @@ RSpec.describe 'Sessions', type: :request do
     context 'when params are valid' do
       it 'responds with a status of 302' do
         user = FactoryBot.create(:user)
-        post sessions_path, params: { email: user.email, password: user.password }
+        post sessions_path, params: { user: { email: user.email, password: user.password } }
         expect(response).to have_http_status(302)
       end
     end
@@ -20,14 +20,14 @@ RSpec.describe 'Sessions', type: :request do
     context 'when params are invalid' do
       it 'responds with a status of 422' do
         user = FactoryBot.create(:user)
-        post sessions_path, params: { email: 'fake', password: user.password }
+        post sessions_path, params: { user: { email: 'fake', password: user.password } }
         expect(response).to have_http_status(422)
       end
     end
 
     context 'when the user isn\'t registered' do
       it 'responds with a status of 422' do
-        post sessions_path, params: { email: 'fake@fake.com', password: 'fake' }
+        post sessions_path, params: { user: { email: 'fake@fake.com', password: 'fake' } }
         expect(response).to have_http_status(422)
       end
     end
