@@ -1,21 +1,16 @@
-<%= form_with(model: @article, data: {controller: "tinymce"}, class: "relative w-full") do |form| %>
-    <div class="absolute z-50 flex w-full top-[7rem]">
-        <%= form.text_field :title, class: "!text-5xl w-full outline-none py-1 !px-0 text-md border-2 rounded-md", placeholder: "TITLE" %>
-        
-        <% @article.errors.full_messages_for(:title).each do |message| %>
+<%= form_with(model: @article, data: {controller: "tinymce"}, class: "w-full border border-gray px-8 py-4 rounded-lg") do |form| %>
+    <div class="flex w-full">  
+        <% @article.errors.full_messages.any? do |message| %>
             <p style="color: red"><%= message %></p>
         <% end %>
     </div>
 
-    <div>
-        <%= form.text_area :body, class: "tinymce w-full font-serif p-4 outline-none text-gray-600 bg-indigo-50 rounded-md", size: "30x10", placeholder: "Write here." %>
-
-        <% @article.errors.full_messages_for(:body).each do |message| %>
-            <p style="color: red"><%= message %></p>
-        <% end %>
+    <div class="space-y-2">
+        <%= form.text_field :title, placeholder: "Title" %>
+        <%= form.text_area :body, id: "tinymce", placeholder: "Write here." %>
     </div>
 
-    <% form.hidden_field(:image_url, value: @download_url) %>
+    <%= form.hidden_field(:image_url, value: "") %>
 
     <div class="flex items-center justify-between mt-4">
         <%= link_to "Cancel", articles_path, class: "btn-lg btn-outline" %>
