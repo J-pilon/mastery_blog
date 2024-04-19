@@ -2,11 +2,11 @@
     <%= render partial: "shared/back_button" %>
 
     <div class="space-y-4">
-            <% if @article.image_url %>
-                <div class="w-full max-h-[600px] overflow-hidden flex justify-center items-center rounded-t-lg">
-                    <img src=<%= image_url(@article.image_url) %> alt="" class="object-contain">
-                </div>
-            <% end %>
+            <%# <% if @article.image_url %>
+                <%# <div class="w-full max-h-[600px] overflow-hidden flex justify-center items-center rounded-t-lg">
+                    <img src=<%= image_url(@article.image_url) alt="" class="object-contain">
+                <%# </div %>
+            <%# end %>
 
         <div class="flex flex-row items-center justify-between px-8">
             <h1 class="">
@@ -19,7 +19,7 @@
         </div>
 
         <p class="px-8">
-            <%= @article.body %>
+            <%= @article.body.html_safe %>
         </p>
 
     </div>
