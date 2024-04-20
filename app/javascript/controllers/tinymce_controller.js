@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { imagesUploadHandler } from "../utils/uploadHandler";
+import { tinymceImageUploadHandler } from "../utils/uploadHandler";
 
 export default class extends Controller {
   connect() {
@@ -16,7 +16,7 @@ export default class extends Controller {
         "file edit view insert format tools undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | image",
       content_css: "/assets/tinymce",
       automatic_uploads: true,
-      images_upload_handler: imagesUploadHandler,
+      images_upload_handler: tinymceImageUploadHandler,
     });
 
     document.addEventListener("imageUploadSuccess", this.onImageUploadSuccess);
