@@ -1,7 +1,7 @@
-div.tox-tinymce[role="application"] {
+/* div.tox-tinymce[role="application"] {
   border: none;
-}
-.tox:not(.tox-tinymce-inline) div.tox-editor-header {
+} */
+/* .tox:not(.tox-tinymce-inline) div.tox-editor-header {
   background-color: var(--accent);
   color: white;
   border-radius: 1rem;
@@ -45,28 +45,19 @@ div.tox-tinymce[role="application"] {
   fill: white !important;
 }
 body#tinymce {
-  margin-top: 4rem;
+  margin-top: 2rem;
   height: 100%;
-}
+} */
 
 p img[data-mce-src] {
-  width: 600px;
+  display: none;
 }
 
-/* .tox:not(.tox-tinymce-inline) div[data-alloy-vertical-dir="toptobottom"].tox-editor-header {
-  padding: 0;
-  box-shadow: none;
-  border: transparent;
-  border-radius: 0.5rem;
-
-  & div[role="menubar"].tox-menubar {
-    background: var(--accent);
-
-    & .tox-mbtn {
-      color: white;
-    }
-  }
+div.tox-tinymce {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  border: solid 2px var(--gray);
+  margin-top: 2rem;
 }
-.tox .tox-menubar+.tox-toolbar, .tox .tox-menubar+.tox-toolbar-overlord {
-  background: black;
-} */

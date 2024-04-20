@@ -1,8 +1,12 @@
-<%= form_with(model: @article, data: {controller: "tinymce"}, class: "w-full border border-gray px-8 py-4 rounded-lg") do |form| %>
+<%= form_with(model: @article, data: {controller: "tinymce"}, class: "w-full px-8 py-4 rounded-lg space-y-2") do |form| %>
     <div class="flex w-full">  
         <% @article.errors.full_messages.any? do |message| %>
             <p style="color: red"><%= message %></p>
         <% end %>
+    </div>
+
+    <div class="flex items-center justify-center overflow-hidden h-[500px]">
+        <img id="article_image" src=<%= image_url("placeholder.jpeg") %> class="object-cover w-full h-full rounded-lg">
     </div>
 
     <div class="space-y-2">
