@@ -30,7 +30,7 @@ export function imagesUploadHandler(blob, _) {
       const response = await getStorageServiceUrl(storageServiceUrl);
       const urls = await formatToJson(response);
       const { presigned_url, download_url } = urls;
-      await uploadImageTo(presigned_url, file);
+      await uploadImage(presigned_url, file);
 
       success(download_url);
     } catch (err) {
