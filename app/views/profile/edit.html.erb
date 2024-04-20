@@ -18,19 +18,27 @@
 
       <%= f.hidden_field(:image_url, data: {profile_target: "imageUrl"}) %>
 
-      <div class="flex flex-row items-center">
-        <div class="flex flex-col items-start mr-4">
-          <%= f.label :first_name, class: "font-bold mr-4" %>
+      <div class="flex flex-row items-center mb-4 w-88">
+        <div class="flex flex-col items-start w-full mr-4">
+          <%= f.label :first_name, class: "font-bold" %>
           <%= f.text_field :first_name, value: @profile.first_name %>
         </div>
         
-        <div class="flex flex-col items-start ml-4">
-          <%= f.label :last_name, class: "font-bold mr-4" %>
+        <div class="flex flex-col items-start w-full ml-4">
+          <%= f.label :last_name, class: "font-bold" %>
           <%= f.text_field :last_name, value: @profile.last_name %>
         </div>
       </div>
+
+      <%# <div class="w-88">
+        <%= f.label :email, class: "font-bold" %>
+        <%# <%= f.text_field :email, value: @profile.user.email
+      </div %>
     </div>
 
-    <div><%= f.submit "Save Changes", class: "mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %></div>
+    <div class="flex justify-between space-x-4">
+      <%= f.submit "Save Changes", class: "btn-lg btn-primary" %>
+      <%= link_to "Cancel", :back, class: "btn-lg btn-outline" %>
+    </div>
   </div>
 <% end %>
