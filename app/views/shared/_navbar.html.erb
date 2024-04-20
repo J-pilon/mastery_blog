@@ -15,8 +15,7 @@
 
       <%= link_to profile_path(id: current_profile), class: "h-full" do %>
         <div class="w-12 h-12 ml-2 overflow-hidden border-2 border-solid rounded-full border-primary">
-          <%# <img src=<%= profile_image_url(current_profile) alt="" class="h-full object-fit" %>
-          <img src=<%= image_url("Profile/pexels-pixabay-220453.jpg") %> alt="" class="object-cover w-full h-full">
+          <img src=<%= image_url(current_profile.image_url ? current_profile.image_url : "blank-profile-picture.webp") %> alt="" class="object-cover w-full h-full">
         </div>
       <% end %>
     <% else %>
@@ -24,12 +23,3 @@
     <% end %>
   </div>
 </header>
-
-<%# user not logged in %>
-<%# show sign up and log in buttons in nav %>
-
-<%# user is logged in %>
-<%# show profile image %>
-
-<%# always show %>
-<%# home, categories, latest, maybe: search %>
