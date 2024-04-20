@@ -10,40 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_231_116_213_621) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_20_183425) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'articles', force: :cascade do |t|
-    t.string 'title'
-    t.text 'body'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'slug'
-    t.string 'image_url'
-    t.bigint 'profile_id'
-    t.integer 'state', default: 0
-    t.index ['profile_id'], name: 'index_articles_on_profile_id'
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug"
+    t.string "image_url"
+    t.bigint "profile_id"
+    t.integer "state", default: 0
+    t.index ["profile_id"], name: "index_articles_on_profile_id"
   end
 
-  create_table 'profiles', force: :cascade do |t|
-    t.string 'first_name'
-    t.string 'last_name'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'image_url'
+  create_table "profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_url"
+    t.text "bio"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email'
-    t.string 'password_digest'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.bigint 'profile_id'
-    t.string 'reset_token'
-    t.datetime 'reset_token_expiry'
-    t.index ['profile_id'], name: 'index_users_on_profile_id'
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "profile_id"
+    t.string "reset_token"
+    t.datetime "reset_token_expiry"
+    t.index ["profile_id"], name: "index_users_on_profile_id"
   end
 
-  add_foreign_key 'users', 'profiles'
+  add_foreign_key "users", "profiles"
 end
