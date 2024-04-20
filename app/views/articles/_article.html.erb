@@ -15,7 +15,7 @@
       </h4>
 
       <p class="overflow-hidden text-base leading-normal text-gray-700 overflow-ellipsis">
-        <%= article.body.truncate_words(30) %>
+        <%= article.body.html_safe.truncate_words(30) %>
       </p>
     </div>
   <% end %>

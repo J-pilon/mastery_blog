@@ -5,7 +5,7 @@ export default class extends Controller {
   connect() {
     tinymce.init({
       selector: "textarea#tinymce",
-      height: 800,
+      height: 400,
       // plugins: [
       //   "image",
       //   "advlist autolink lists link image charmap print preview anchor",
@@ -14,7 +14,6 @@ export default class extends Controller {
       // ],
       toolbar:
         "file edit view insert format tools undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | image",
-      // skin: "oxide-dark",
       content_css: "/assets/tinymce",
       automatic_uploads: true,
       images_upload_handler: imagesUploadHandler,
@@ -25,13 +24,14 @@ export default class extends Controller {
 
   onImageUploadSuccess(e) {
     const downloadUrl = e.detail.downloadUrl;
-    const imageElement = document.querySelector("input#article_image_url");
-    imageElement.value = downloadUrl;
-    console.log(imageElement.value, " - Image URL set.");
+    const hiddenInput = document.querySelector("input#article_image_url");
+    hiddenInput.value = downloadUrl;
+
+    const imageElement = document.querySelector("img#article_image");
+    imageElement.src = downloadUrl;
   }
 
   disconnect() {
-    // console.log("Tinymce controller disconnected.");
     document.removeEventListener(
       "imageUploadSuccess",
       this.onImageUploadSuccess

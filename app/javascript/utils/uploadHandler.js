@@ -43,7 +43,9 @@ export function imagesUploadHandler(blob, _) {
       });
       document.dispatchEvent(event);
 
-      success(download_url);
+      success(
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+      );
     } catch (err) {
       failure({ message: err, remove: true });
     }
