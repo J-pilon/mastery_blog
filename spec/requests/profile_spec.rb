@@ -20,7 +20,8 @@ RSpec.describe 'Profiles', type: :request do
   describe 'PUT profile/:id' do
     context 'when params are valid' do
       it 'returns http success' do
-        profile_params = { profile: { first_name: 'fake', last_name: 'fake' } }
+        profile_params = { profile: { first_name: 'fake', last_name: 'fake', bio: 'bio' },
+                           user: { email: 'test@test.com' } }
         put profile_path(id: user.profile), params: profile_params
         expect(response).to have_http_status(302)
       end
@@ -28,7 +29,7 @@ RSpec.describe 'Profiles', type: :request do
 
     context 'when params are invalid' do
       it 'returns http success' do
-        profile_params = { profile: { first_name: nil, last_name: nil } }
+        profile_params = { profile: { first_name: nil, last_name: nil }, user: { email: nil } }
         put profile_path(id: user.profile), params: profile_params
         expect(response).to have_http_status(422)
       end
