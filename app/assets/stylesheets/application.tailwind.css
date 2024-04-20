@@ -3,36 +3,35 @@
 @tailwind utilities;
 
 :root {
-  --primary: theme('colors.primary');
-  --secondary: theme('colors.secondary');
-  --accent: theme('colors.accent');
-  --light: theme('colors.light');
-  --black: theme('colors.black');
-  --gray: theme('colors.gray');
+  --primary: theme("colors.primary");
+  --secondary: theme("colors.secondary");
+  --accent: theme("colors.accent");
+  --light: theme("colors.light");
+  --black: theme("colors.black");
+  --gray: theme("colors.gray");
 }
-
 
 /* Fonts */
 @layer base {
   @font-face {
-    font-family: 'Arimo';
+    font-family: "Arimo";
     font-weight: 400;
-    src: url('Arimo/Arimo-Regular.ttf') format('TrueType');
+    src: url("Arimo/Arimo-Regular.ttf") format("TrueType");
   }
   @font-face {
-    font-family: 'Arimo';
+    font-family: "Arimo";
     font-weight: 500;
-    src: url('Arimo/Arimo-Medium.ttf') format('TrueType');
+    src: url("Arimo/Arimo-Medium.ttf") format("TrueType");
   }
   @font-face {
-    font-family: 'Arimo';
+    font-family: "Arimo";
     font-weight: 600;
-    src: url('Arimo/Arimo-SemiBold.ttf') format('TrueType');
+    src: url("Arimo/Arimo-SemiBold.ttf") format("TrueType");
   }
   @font-face {
-    font-family: 'Arimo';
+    font-family: "Arimo";
     font-weight: 700;
-    src: url('Arimo/Arimo-Bold.ttf') format('TrueType');
+    src: url("Arimo/Arimo-Bold.ttf") format("TrueType");
   }
 
   html {
@@ -72,24 +71,31 @@
 
   p {
     @apply text-lg font-normal leading-5 font-arimo text-gray;
-  } 
+  }
 
   /* Inputs */
 
-  input[type="password"], input[type="email"], input[name="first_name"], input[name="last_name"], input[type="tel"], input[type="text"], textarea {
+  input[type="password"],
+  input[type="email"],
+  input[name="first_name"],
+  input[name="last_name"],
+  input[type="tel"],
+  input[type="text"],
+  textarea {
     @apply w-full px-2 py-3 text-lg font-normal text-black bg-transparent border-2 border-solid focus:ring-transparent focus:border-primary focus:shadow-transparent focus:outline-none font-arimo rounded-xl border-gray;
-  } 
+  }
 
-  input[type="password"]::placeholder, input[type="email"]::placeholder, input[name="name"]::placeholder, input[type="tel"]::placeholder, input[type="text"]::placeholder, textarea::placeholder {
+  input[type="password"]::placeholder,
+  input[type="email"]::placeholder,
+  input[name="name"]::placeholder,
+  input[type="tel"]::placeholder,
+  input[type="text"]::placeholder,
+  textarea::placeholder {
     @apply text-lg font-normal font-arimo text-gray;
   }
 
   input[type="checkbox"] {
     @apply w-4 h-4 text-indigo-600 border-2 rounded-sm border-primary checked:bg-primary focus:checked:ring-light focus:checked:bg-primary hover:checked:bg-primary focus:ring-light;
-  }
-
-  textarea {
-    border-color: transparent;
   }
 }
 
@@ -104,13 +110,13 @@
     position: absolute;
     z-index: -1;
   }
-  
+
   .inputfile + label {
     font-size: 1.25em;
     font-weight: 700;
     color: white;
     background-color: lightgrey;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     display: inline-block;
     cursor: pointer;
   }
@@ -205,7 +211,7 @@
   /* Misc */
 
   .box-shadow {
-    box-shadow: 3px 12px 40px #4545461A;
+    box-shadow: 3px 12px 40px #4545461a;
   }
 
   .overscroll-margin {
@@ -214,6 +220,6 @@
 
   .link--underline:hover div[data-id="underline"] {
     @apply bg-primary;
-    transition: all .2s ease;
-  } 
+    transition: all 0.2s ease;
+  }
 }
