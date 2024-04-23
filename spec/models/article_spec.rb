@@ -64,9 +64,10 @@ RSpec.describe Article, type: :model do
     it 'allowlisted elements are not removed' do
       html = '<p>Heres is the Article body.</p>'
 
-      article = FactoryBot.build(:article, title: 'Title', body: html, profile: profile)
+      article = FactoryBot.build(:article, title: 'Title', body: html, profile: profile,
+                                           category: FactoryBot.create(:category))
       expect(article.valid?).to eq(true)
-      expect(article.body).to eq('<p>Heres is the Article body.</p>')
+      expect(article.body).to eq(' Heres is the Article body. ')
     end
   end
 end

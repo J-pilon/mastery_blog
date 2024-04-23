@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    current_categories
     @article = current_profile.articles.build(article_params)
 
     if @article.save
