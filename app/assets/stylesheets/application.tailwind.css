@@ -85,6 +85,10 @@
     @apply w-full px-2 py-3 text-lg font-normal text-black bg-transparent border-2 border-solid focus:ring-transparent focus:border-primary focus:shadow-transparent focus:outline-none font-arimo rounded-xl border-gray;
   }
 
+  select {
+    @apply focus:border-none focus:outline-none focus:ring-transparent focus:shadow-none;
+  }
+
   input[type="password"]::placeholder,
   input[type="email"]::placeholder,
   input[name="name"]::placeholder,
