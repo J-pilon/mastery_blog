@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/articles/category', to: 'articles#index_by_category', as: 'articles_by_category'
   resources :articles do
     member do
       post :publish
