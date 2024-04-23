@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
     @profile ||= current_user&.profile
   end
 
+  def current_categories
+    @current_categories ||= Category.pluck(:name, :id)
+  end
+
   def authenticate_user!
     redirect_to signin_path unless current_user
   end

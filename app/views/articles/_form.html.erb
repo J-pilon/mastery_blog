@@ -10,7 +10,13 @@
     </div>
 
     <div class="space-y-2">
+        <div class="flex items-center justify-end space-x-2">
+            <p>Choose a category:</p>
+            <%= form.select :category_id, options_for_select(@current_categories, selected: "2"), {}, class: "rounded-lg border-gray border-2" %>
+        </div>
+        
         <%= form.text_field :title, placeholder: "Title" %>
+
         <%= form.text_area :body, id: "tinymce", placeholder: "Write here." %>
     </div>
 
@@ -20,7 +26,7 @@
         <%= link_to "Cancel", articles_path, class: "btn-lg btn-outline" %>
 
         <div class="btn-primary btn-lg">
-            <%= form.submit "Create" %>
+            <%= form.submit %>
         </div>
     </div> 
 <% end %>

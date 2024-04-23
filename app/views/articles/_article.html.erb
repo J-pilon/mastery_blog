@@ -1,12 +1,12 @@
 <article class="flex flex-col h-[550px] max-w-sm mb-6 pb-4 rounded-lg shadow-lg overflow-hidden bg-white">
   <%= link_to article_path(article), class: "flex flex-col items-center w-full h-full" do %>
-    <div class="w-full overflow-hidden max-h-[300px]">
+    <div class="w-full flex items-center justify-center overflow-hidden h-[250px]">
       <img src=<%= article.image_url ? image_url(article.image_url) : "http://via.placeholder.com/640x400" %> alt="" class="object-cover w-full h-full">
     </div>
 
-    <div class="px-4 py-2">
-      <div class="flex items-baseline space-x-2">
-        <span class="text-xs font-semibold tracking-wide uppercase text-secondary">Tech</span>
+    <div class="w-full px-4 py-2">
+      <div class="flex items-baseline w-full space-x-2">
+        <span class="text-xs font-semibold tracking-wide uppercase text-secondary"><%= article.category.name %></span>
         <span class="text-xs text-gray-500"><%= format_date(article.created_at) %></span>
       </div>
 

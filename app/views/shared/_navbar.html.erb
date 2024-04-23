@@ -1,14 +1,14 @@
-<header class="flex items-center justify-between px-8 py-4 text-black border-b-2 border-solid shadow-md border-gray">
+<header class="sticky top-0 flex items-center justify-between px-8 py-4 text-black bg-white border-b-2 border-solid shadow-md border-gray">
   <%= link_to root_path do %>
     <h3>Mastery.</h3>
   <% end %>
     
   <div class="flex items-center">
     <%= link_to "Home", root_path, class: "w-20 navbar-link" %>
-    
-    <%= link_to "Categories", "", class: "w-20 navbar-link" %>
 
-    <%= link_to "Latest", "", class: "w-20 navbar-link" %>
+    <%= form_with(url: articles_by_category_path, method: :get, class: "navbar-link w-28") do |form| %>
+      <%= form.collection_select(:category_id, Category.all, :id, :name, {prompt: "Categories"}, {class: "p-0 border-none", style: "background-position: right 2.5rem center;", onchange: 'this.form.submit();'}) %>
+    <% end %>
 
     <% if logged_in?  %>
       <%= link_to "New article", new_article_path, class: "w-20 navbar-link"%>

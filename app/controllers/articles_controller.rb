@@ -13,6 +13,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    current_categories
     @article = Article.new
   end
 
@@ -27,6 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    current_categories
     @article = find_article(params[:id])
     is_unauthorized?(@article, 'show')
   end
@@ -53,18 +55,30 @@ class ArticlesController < ApplicationController
 
   def publish
     article = find_article(params[:id])
-    StateMachine::Article.new(article).publishing!
+    state_machine_article = StateMachine::Article.new(article)
+    state_machine_article.publishing!
     redirect_to article_path(article) if article.save
+  end
+
+  def index_by_category
+    @category = Category.find(category_params[:category_id])
+    @pagination, @articles = paginate(collection: @category.articles.order(created_at: :desc),
+                                      params: remedy_page_param(page_params))
+    render :index
   end
 
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :image_url)
+    params.require(:article).permit(:title, :body, :image_url, :category_id)
   end
 
   def page_params
     params.permit(:page, :per_page)
+  end
+
+  def category_params
+    params.permit(:category_id)
   end
 
   def find_article(id)

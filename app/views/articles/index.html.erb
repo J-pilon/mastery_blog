@@ -6,8 +6,12 @@
     </div>
 
     <div class="flex flex-wrap justify-center gap-6">
-        <% @articles.each do |article| %>
-            <%= render partial: "article", locals: {article: article} %>
+        <% if @articles.empty? %>
+            <p class="text-xl text-center">No articles found.</p>
+        <% else %>
+            <% @articles.each do |article| %>
+                <%= render partial: "article", locals: {article: article} %>
+            <% end %>
         <% end %>
     </div>
 
