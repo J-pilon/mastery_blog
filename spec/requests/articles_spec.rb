@@ -38,7 +38,8 @@ RSpec.describe 'Articles', type: :request do
 
   describe 'POST /articles' do
     let!(:profile) { FactoryBot.create(:profile) }
-    let(:valid_params) { { article: { title: 'title', body: 'body' } } }
+    let!(:category) { FactoryBot.create(:category) }
+    let(:valid_params) { { article: { title: 'title', body: 'body', category_id: category.id } } }
 
     context 'with valid params' do
       it 'responds with status 302' do
@@ -53,12 +54,12 @@ RSpec.describe 'Articles', type: :request do
 
     context 'with invalid params' do
       it 'responds with :unprocessable_entity status when title is nil' do
-        post articles_path, params: { article: { title: nil, body: 'body' } }
+        post articles_path, params: { article: { title: nil, body: 'body', category_id: category.id } }
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'responds with :unprocessable_entity status when body is nil' do
-        post articles_path, params: { article: { title: 'title', body: nil } }
+        post articles_path, params: { article: { title: 'title', body: nil, category_id: category.id } }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -67,7 +68,7 @@ RSpec.describe 'Articles', type: :request do
       it 'responds with status 302' do
         post signout_path
 
-        post articles_path, params: { article: { title: 'title', body: nil } }
+        post articles_path, params: { article: { title: 'title', body: nil, category_id: category.id } }
         expect(response).to have_http_status(302)
       end
     end
