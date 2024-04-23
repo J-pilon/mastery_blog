@@ -8,6 +8,22 @@
 
 # FactoryBot.create_list(:article, 50)
 
+categories = [
+  'Technology',
+  'Health & Wellness',
+  'Food & Recipes',
+  'Travel',
+  'Fashion & Style',
+  'Science',
+  'Business & Finance',
+  'Sports & Fitness',
+  'Arts & Culture',
+  'Lifestyle'
+]
+categories.each do |category|
+  FactoryBot.create(:category, name: category)
+end
+
 # create users with profiles using FactoryBot
 10.times do
   user = FactoryBot.create(:user)
