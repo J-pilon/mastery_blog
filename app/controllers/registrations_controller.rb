@@ -12,7 +12,7 @@ class RegistrationsController < ApplicationController
 
     if @user.valid? && @profile.valid?
       @user.save
-      redirect_to root_path
+      redirect_to signin_path
     else
       render :new, status: :unprocessable_entity
     end
