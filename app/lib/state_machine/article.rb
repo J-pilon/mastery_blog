@@ -10,13 +10,13 @@ module StateMachine
     def drafting!
       raise "Invalid state #{state}" if state != :created
 
-      article.state = :drafted
+      article.update(state: :drafted)
     end
 
     def publishing!
       raise "Invalid state #{state}" if state != :drafted
 
-      article.state = :published
+      article.update(state: :published)
     end
   end
 end
